@@ -24,7 +24,7 @@ public class GamePanel extends JPanel
     //private Asteroid random;
     public GamePanel (Color c)
     {
-        //hello again
+        //hello again 2
         super();
         this.c = c;
         player = new Ship();
