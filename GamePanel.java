@@ -34,7 +34,7 @@ public class GamePanel extends JPanel
         t4 = new AffineTransform();
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
-        numberAsteroids = 40;
+        numberAsteroids = 50;
         //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
