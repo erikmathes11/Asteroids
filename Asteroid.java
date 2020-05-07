@@ -149,6 +149,11 @@ public class Asteroid
             t.setTransform(t2);
         }
     }
+    
+    public AffineTransform getT()
+    {
+        return t;
+    }
 
     
     

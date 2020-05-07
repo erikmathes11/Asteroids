@@ -34,7 +34,7 @@ public class GamePanel extends JPanel
         t4 = new AffineTransform();
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
-        numberAsteroids = 60;
+        numberAsteroids = 10;
         //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
@@ -84,7 +84,7 @@ public class GamePanel extends JPanel
             asteroids.get(i).teleportAsteroid();
         }
         player.teleportShots(t4);
-
+        player.checkForHit(asteroids);
         // random.makeAsteroids(asteroids); //, g2D, this);
         // for (int i = 0; i < asteroids.size(); i++)
         // {
@@ -104,8 +104,6 @@ public class GamePanel extends JPanel
         }
         this.repaint();
     }
-    
-    
 
     public class Turn extends KeyAdapter
     {

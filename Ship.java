@@ -72,11 +72,27 @@ public class Ship
         }
     }
     
-    public void checkForHit()
+    public void checkForHit(ArrayList<Asteroid> asteroids)
     {
         for (int i = 0; i < shots.size(); i++)
         {
-            
+            for (int j = 0; j < asteroids.size(); j++)
+            {
+                double shotX = shots.get(i).getTranslateX();
+                double shotY = shots.get(i).getTranslateY();
+                double asteroidX = asteroids.get(i).getT().getTranslateX();
+                double asteroidY = asteroids.get(i).getT().getTranslateY();
+                if (shotX > asteroidX && shotX < asteroidX + 35)
+                {
+                    asteroids.remove(j - 1);
+                    shots.remove(i - 1);
+                }
+                if (shotY > asteroidY && shotY < asteroidY + 35)
+                {
+                    asteroids.remove(j - 1);
+                    shots.remove(i - 1);
+                }
+            }
         }
     }
 
