@@ -71,6 +71,14 @@ public class Ship
             g2D.drawImage(shot, shots.get(i), panel1);
         }
     }
+    
+    public void checkForHit()
+    {
+        for (int i = 0; i < shots.size(); i++)
+        {
+            
+        }
+    }
 
     public void teleportShots(AffineTransform t4)
     {
