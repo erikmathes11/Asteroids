@@ -71,80 +71,93 @@ public class Ship
             g2D.drawImage(shot, shots.get(i), panel1);
         }
     }
-    
+
     public void checkForHit(ArrayList<Asteroid> asteroids)
     {
-        for (int i = 0; i < shots.size(); i++)
+        if (shots.size() != 0 && asteroids.size() != 0)
         {
-            for (int j = 0; j < asteroids.size(); j++)
+            for (int i = 0; i < shots.size() - 1; i++)
             {
-                double shotX = shots.get(i).getTranslateX();
-                double shotY = shots.get(i).getTranslateY();
-                double asteroidX = asteroids.get(i).getT().getTranslateX();
-                double asteroidY = asteroids.get(i).getT().getTranslateY();
-                if (shotX > asteroidX && shotX < asteroidX + 35)
+                for (int j = 0; j < asteroids.size() - 1; j++)
                 {
-                    asteroids.remove(j - 1);
-                    shots.remove(i - 1);
-                }
-                if (shotY > asteroidY && shotY < asteroidY + 35)
-                {
-                    asteroids.remove(j - 1);
-                    shots.remove(i - 1);
+                    System.out.println("I: " + i);
+                    System.out.println("J: " + j);//why does it say J starts at 2?
+                    double shotX = shots.get(i).getTranslateX();
+                    double shotY = shots.get(i).getTranslateY();
+                    double asteroidX = asteroids.get(i).getT().getTranslateX();
+                    double asteroidY = asteroids.get(i).getT().getTranslateY();
+                    if (shotX > asteroidX && shotX < asteroidX + 35)
+                    {
+                        System.out.println("Shots Size: " + shots.size());
+                        System.out.println("Asteroids Size: " + asteroids.size());
+                        System.out.println("Asteroids index: " + j);
+                        System.out.println("Shots index: " + i);
+                        //asteroids.remove(j);
+                        //shots.remove(i);
+                    }
+                    if (shotY > asteroidY && shotY < asteroidY + 35)
+                    {
+                        System.out.println("Shots Size: " + shots.size());
+                        System.out.println("Asteroids Size: " + asteroids.size());
+                        System.out.println("Asteroids index: " + j);
+                        System.out.println("Shots index: " + i);
+                        //asteroids.remove(j);
+                        //shots.remove(i);
+                    }
                 }
             }
         }
     }
 
-    public void teleportShots(AffineTransform t4)
-    {
-        for (int i = 0; i < shots.size(); i++)
-        {
-            if (shots.get(i).getTranslateX() > 2020) //1920, +35, 1875
-            {
-                //somewhat works with just first statements in whiles
-                t4.setTransform(shots.get(i));
-                while(t4.getTranslateX() > -60 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //35
-                {
-                    t4.translate(-2, -2);
-                    //t.setTransform(t2);
-                    //System.out.println("t2 x Location: " + t2.getTranslateX() + " t2 y Location: " +);
-                }
-                shots.get(i).setTransform(t4); //-1950
-                //t.translate(-2, -2);
-            }
-            if(shots.get(i).getTranslateX() < -100)
-            {
-                t4.setTransform(shots.get(i));
-                while(t4.getTranslateX() < 1970 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //1875
-                {
-                    t4.translate(-2, -2);
-                    //t.setTransform(t2);
-                }
-                shots.get(i).setTransform(t4);
-            }
-            if (shots.get(i).getTranslateY() > 1180) //1080, + 35, 1045
-            {
-                t4.setTransform(shots.get(i));
-                while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() > -60) //35
-                {
-                    t4.translate(-2, -2);
-                    //t.setTransform(t2);
-                }
-                shots.get(i).setTransform(t4); //-1130
-                //t.translate(-2, -2);
-            }
-            if(t4.getTranslateY() < -100)
-            {
-                t4.setTransform(shots.get(i));
-                while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() < 1140) //1045
-                {
-                    t4.translate(-2, -2);
-                    //t.setTransform(t2);
-                }
-                shots.get(i).setTransform(t4);
-            }
-        }
-    }
+    // public void teleportShots(AffineTransform t4)
+    // {
+        // for (int i = 0; i < shots.size(); i++)
+        // {
+            // if (shots.get(i).getTranslateX() > 2020) //1920, +35, 1875
+            // {
+                // //somewhat works with just first statements in whiles
+                // t4.setTransform(shots.get(i));
+                // while(t4.getTranslateX() > -60 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //35
+                // {
+                    // t4.translate(-2, -2);
+                    // //t.setTransform(t2);
+                    // //System.out.println("t2 x Location: " + t2.getTranslateX() + " t2 y Location: " +);
+                // }
+                // shots.get(i).setTransform(t4); //-1950
+                // //t.translate(-2, -2);
+            // }
+            // if(shots.get(i).getTranslateX() < -100)
+            // {
+                // t4.setTransform(shots.get(i));
+                // while(t4.getTranslateX() < 1970 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //1875
+                // {
+                    // t4.translate(-2, -2);
+                    // //t.setTransform(t2);
+                // }
+                // shots.get(i).setTransform(t4);
+            // }
+            // if (shots.get(i).getTranslateY() > 1180) //1080, + 35, 1045
+            // {
+                // t4.setTransform(shots.get(i));
+                // while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() > -60) //35
+                // {
+                    // t4.translate(-2, -2);
+                    // //t.setTransform(t2);
+                // }
+                // shots.get(i).setTransform(t4); //-1130
+                // //t.translate(-2, -2);
+            // }
+            // if(t4.getTranslateY() < -100)
+            // {
+                // t4.setTransform(shots.get(i));
+                // while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() < 1140) //1045
+                // {
+                    // t4.translate(-2, -2);
+                    // //t.setTransform(t2);
+                // }
+                // shots.get(i).setTransform(t4);
+            // }
+        // }
+    // }
 
 }

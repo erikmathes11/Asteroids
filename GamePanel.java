@@ -83,8 +83,9 @@ public class GamePanel extends JPanel
             asteroids.get(i).drawAsteroid(g2D, this, asteroids.get(i).getAsteroid());
             asteroids.get(i).teleportAsteroid();
         }
-        player.teleportShots(t4);
+        //player.teleportShots(t4);
         player.checkForHit(asteroids);
+        
         // random.makeAsteroids(asteroids); //, g2D, this);
         // for (int i = 0; i < asteroids.size(); i++)
         // {
