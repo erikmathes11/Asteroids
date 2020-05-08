@@ -14,12 +14,14 @@ public class Asteroid
     private AffineTransform t2;
     private int typeAsteroid;
     private BufferedImage asteroid;
+    private double scale;
     public Asteroid()
     {
         t = new AffineTransform();
         t2 = new AffineTransform();
         t.translate(800,800);
         t.rotate((Math.random() * 2 * Math.PI) + 0);
+        scale = 0;
         try
         {
             typeAsteroid = (int)(Math.random() * 100) + 0;
@@ -65,26 +67,31 @@ public class Asteroid
         {
             pointValue = 100;
             t.scale(1, 1);
+            scale = 1;
         }
         else if (size == 2)
         {
             pointValue = 200;
             t.scale(.8, .8);
+            scale = .8;
         }
         else if (size == 3)
         {
             pointValue = 300;
             t.scale(.6, .6);
+            scale = .6;
         }
         else if (size == 4)
         {
             pointValue = 400;
             t.scale(.4, .4);
+            scale = .4;
         }
         else
         {
             pointValue = 500;
             t.scale(.2, .2);
+            scale = .2;
         }
 
     }
@@ -154,7 +161,11 @@ public class Asteroid
     {
         return t;
     }
-
+    
+    public double getScale()
+    {
+        return scale;
+    }
     
     
     
