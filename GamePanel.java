@@ -34,7 +34,7 @@ public class GamePanel extends JPanel
         t4 = new AffineTransform();
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
-        numberAsteroids = 10;
+        numberAsteroids = 30;
         //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
@@ -110,7 +110,7 @@ public class GamePanel extends JPanel
     {
         public void keyPressed(KeyEvent e)
         {
-            System.out.println(e.getKeyCode());
+            //System.out.println(e.getKeyCode());
             if(e.getKeyCode() == 40)//reverse
             {
                 player.moveBackward(t, t2, t3);

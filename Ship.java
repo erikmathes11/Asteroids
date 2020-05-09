@@ -74,48 +74,73 @@ public class Ship
 
     public void checkForHit(ArrayList<Asteroid> asteroids)
     {
-        if (shots.size() != 0 && asteroids.size() != 0)
+        int shotsSize = shots.size();
+        int asteroidsSize = asteroids.size();
+        if (shotsSize != 0 && asteroidsSize != 0)
         {
-            for (int i = 0; i < shots.size(); i++) //i reaches 10 even though it shouldn't (even when you subtract from size)
+            for (int i = 0; i < shotsSize; i++)
             {
-                for (int j = 0; j < asteroids.size(); j++)
+                for (int j = 0; j < asteroidsSize; j++)
                 {
-                    System.out.println("Shots Size: " + shots.size());
-                    System.out.println("Asteroids Size: " + asteroids.size());
-                    System.out.println("I: " + i);
-                    System.out.println("J: " + j);//why does it say J starts at 2?
-                    double shotX = shots.get(i).getTranslateX(); //size of shots and index match sometimes
-                    double shotY = shots.get(i).getTranslateY();
-                    double asteroidX = asteroids.get(j).getT().getTranslateX();
-                    double asteroidY = asteroids.get(j).getT().getTranslateY();
+                    double shotX = 0;
+                    double shotY = 0;
 
+                    double asteroidX = 0;
+                    double asteroidY = 0;
+                    try
+                    {
+                        shotX = shots.get(i).getTranslateX();
+                        shotY = shots.get(i).getTranslateY();
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Error with i"); //i-- didn't work
+                        System.out.println("Before");
+                        System.out.println("J: " + j);
+                        System.out.println("I: " + i);
+                        System.out.println("Asteroids Size: " + asteroidsSize);
+                        System.out.println("Shots Size: " + shotsSize);
+                        i--;
+                        System.out.println("After");
+                        System.out.println("J: " + j);
+                        System.out.println("I: " + i);
+                        System.out.println("Asteroids Size: " + asteroidsSize);
+                        System.out.println("Shots Size: " + shotsSize);
+                    }
+                    try
+                    {
+                        asteroidX = asteroids.get(j).getT().getTranslateX();
+                        asteroidY = asteroids.get(j).getT().getTranslateY();
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Error with j");
+                        System.out.println("Before");
+                        System.out.println("J: " + j);
+                        System.out.println("I: " + i);
+                        System.out.println("Asteroids Size: " + asteroidsSize);
+                        System.out.println("Shots Size: " + shotsSize);
+                        j--;
+                        System.out.println("J: " + j);
+                        System.out.println("I: " + i);
+                        System.out.println("Asteroids Size: " + asteroidsSize);
+                        System.out.println("Shots Size: " + shotsSize);
+                    }
+                    
+                    //still problems with if statements
                     if (shotX > asteroidX && shotX < asteroidX + (31 * asteroids.get(j).getScale()))
                     {
-                        System.out.println("Shots Size: " + shots.size());
-                        System.out.println("Asteroids Size: " + asteroids.size());
-                        System.out.println("Asteroids index: " + j);
-                        System.out.println("Shots index: " + i);
                         asteroids.remove(j);
                         shots.remove(i);
-                        System.out.println("After Remove");
-                        System.out.println("Shots Size: " + shots.size());
-                        System.out.println("Asteroids Size: " + asteroids.size());
-                        System.out.println("Asteroids index: " + j);
-                        System.out.println("Shots index: " + i);
+                        shotsSize--;
+                        asteroidsSize--;
                     }
                     if (shotY > asteroidY && shotY < asteroidY + (31 * asteroids.get(j).getScale()))
                     {
-                        System.out.println("Shots Size: " + shots.size());
-                        System.out.println("Asteroids Size: " + asteroids.size());
-                        System.out.println("Asteroids index: " + j);
-                        System.out.println("Shots index: " + i);
                         asteroids.remove(j);
                         shots.remove(i);
-                        System.out.println("After Remove");
-                        System.out.println("Shots Size: " + shots.size());
-                        System.out.println("Asteroids Size: " + asteroids.size());
-                        System.out.println("Asteroids index: " + j);
-                        System.out.println("Shots index: " + i);
+                        shotsSize--;
+                        asteroidsSize--;
                     }
                 }
             }
