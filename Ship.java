@@ -97,6 +97,11 @@ public class Ship
                         System.out.println("Shots index: " + i);
                         asteroids.remove(j);
                         shots.remove(i);
+                        System.out.println("After Remove");
+                        System.out.println("Shots Size: " + shots.size());
+                        System.out.println("Asteroids Size: " + asteroids.size());
+                        System.out.println("Asteroids index: " + j);
+                        System.out.println("Shots index: " + i);
                     }
                     if (shotY > asteroidY && shotY < asteroidY + (31 * asteroids.get(j).getScale()))
                     {
@@ -106,6 +111,11 @@ public class Ship
                         System.out.println("Shots index: " + i);
                         asteroids.remove(j);
                         shots.remove(i);
+                        System.out.println("After Remove");
+                        System.out.println("Shots Size: " + shots.size());
+                        System.out.println("Asteroids Size: " + asteroids.size());
+                        System.out.println("Asteroids index: " + j);
+                        System.out.println("Shots index: " + i);
                     }
                 }
             }
