@@ -27,35 +27,35 @@ public class Asteroid
             typeAsteroid = (int)(Math.random() * 100) + 0;
             if (typeAsteroid > 0 && typeAsteroid <= 20)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (1).png"));
+                asteroid = ImageIO.read(new File("asteroid (1).png"));
             }
             else if (typeAsteroid > 20 && typeAsteroid <= 40)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (5).png"));
+                asteroid = ImageIO.read(new File("asteroid (5).png"));
             }
             else if (typeAsteroid > 40 && typeAsteroid <= 60)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (6).png"));
+                asteroid = ImageIO.read(new File("asteroid (6).png"));
             }
             else if (typeAsteroid > 60 && typeAsteroid <= 80)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (7).png"));
+                asteroid = ImageIO.read(new File("asteroid (7).png"));
             }
             else if (typeAsteroid > 80 && typeAsteroid <= 85)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (2).png"));
+                asteroid = ImageIO.read(new File("asteroid (2).png"));
             }
             else if (typeAsteroid > 85 && typeAsteroid <= 90)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (3).png"));
+                asteroid = ImageIO.read(new File("asteroid (3).png"));
             }
             else if (typeAsteroid > 90 && typeAsteroid <= 95)
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (4).png"));
+                asteroid = ImageIO.read(new File("asteroid (4).png"));
             }
             else
             {
-                asteroid = ImageIO.read(new File("E:\\Game\\asteroid (8).png"));
+                asteroid = ImageIO.read(new File("asteroid (8).png"));
             }
         }
         catch (Exception e)

@@ -12,11 +12,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.geom.AffineTransform;
+import java.lang.*;
 public class Test2 extends JPanel
 {
     private BufferedImage image;
     private AffineTransform t;
     private AffineTransform t2;
+    private ClassLoader classLoader;
     public Test2()
     {
         super();
@@ -31,18 +33,19 @@ public class Test2 extends JPanel
         Graphics2D g2D = (Graphics2D) g;
         try
         {
-            image = ImageIO.read(new File("E:\\Game\\shot.png"));
+            //image = ImageIO.read(new File("E:\\Game\\download (315).png"));
+            image = ImageIO.read(new File("download (315).png"));
         }
         catch (Exception e)
         {
 
         }
-        t.rotate(Math.PI/4, 20, 20);
-        t2.setTransform(t);
+        //t.rotate(Math.PI/4, 20, 20);
+        //t2.setTransform(t);
         //t.scale(50,50);
         //t.rotate(Math.PI/4,12,12);
         //g2D.setTransform(t);
-        g2D.drawImage(image, t2, this);
+        //g2D.drawImage(image, t2, this);
         g.drawImage(image, 517, 517, this); //works
         try
         {

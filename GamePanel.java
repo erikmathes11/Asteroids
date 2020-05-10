@@ -5,7 +5,9 @@ import java.awt.image.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList; //use to just be java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
 public class GamePanel extends JPanel
 {
     private Color c;
@@ -20,6 +22,7 @@ public class GamePanel extends JPanel
     private AffineTransform original;
     private ArrayList<Asteroid> asteroids;
     private int numberAsteroids;
+    private Timer timer;
     //private int typeAsteroid;
     //private Asteroid random;
     public GamePanel (Color c)
@@ -35,6 +38,7 @@ public class GamePanel extends JPanel
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
         numberAsteroids = 30;
+        timer = new Timer("Shot Timer");
         //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
@@ -62,8 +66,8 @@ public class GamePanel extends JPanel
         Graphics2D g2D = (Graphics2D) g;
         try
         {
-            ship = ImageIO.read(new File("E:\\Game\\download (315).png"));
-            shot = ImageIO.read(new File("E:\\Game\\shot.png"));
+            ship = ImageIO.read(new File("download (315).png"));
+            shot = ImageIO.read(new File("shot.png"));
         }
         catch (Exception e)
         {
@@ -129,6 +133,7 @@ public class GamePanel extends JPanel
             }
             if(e.getKeyCode() == 32)//shoot
             {
+                //timer.schedule(new TimerTask(), 10);
                 player.shoot(t3);
             }
         }

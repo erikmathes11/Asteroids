@@ -126,8 +126,11 @@ public class Ship
                         System.out.println("Asteroids Size: " + asteroidsSize);
                         System.out.println("Shots Size: " + shotsSize);
                     }
-                    
+
                     //still problems with if statements
+                    System.out.println("Before Checking for Hit");
+                    System.out.println("Asteroids Size: " + asteroidsSize);
+                    System.out.println("J: " + j);
                     if (shotX > asteroidX && shotX < asteroidX + (31 * asteroids.get(j).getScale()))
                     {
                         asteroids.remove(j);
