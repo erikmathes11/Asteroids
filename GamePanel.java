@@ -74,6 +74,15 @@ public class GamePanel extends JPanel
             stars.add(new Star((int)(Math.random() * 1921) + 0, (int)(Math.random() * 1081) + 0, (int)(Math.random() * 6) + 1, new Color((int)(Math.random() * 241) + 0, (int)(Math.random() * 241) + 0, 0)));
             starsNumber--;
         }
+        try
+        {
+            ship = ImageIO.read(new File("download (315).png"));
+            shot = ImageIO.read(new File("shot.png"));
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 
     public GamePanel ()
@@ -85,16 +94,6 @@ public class GamePanel extends JPanel
     {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
-        try
-        {
-            ship = ImageIO.read(new File("download (315).png"));
-            shot = ImageIO.read(new File("shot.png"));
-        }
-        catch (Exception e)
-        {
-
-        }
-        
         g2D.drawImage(ship, t, this);
         player.drawShot(g2D, shot, this);
         while (numberAsteroids > 0)
@@ -145,6 +144,14 @@ public class GamePanel extends JPanel
                 {
                     keyCodes.add(38);
                     addKeyCode38 = false;
+                    try
+                    {
+                        ship = ImageIO.read(new File("shipMoving (315).png"));
+                    }
+                    catch (Exception error)
+                    {
+
+                    }
                 }
 
             }
@@ -228,6 +235,18 @@ public class GamePanel extends JPanel
                     {
                         keyCodes.remove(i);
                         addKeyCode38 = true;
+                        try
+                        {
+                            ship = ImageIO.read(new File("download (315).png"));
+                        }
+                        catch (Exception error)
+                        {
+
+                        }
+                        // for (double j = 1.0; j > .1; j /= 2.0)
+                        // {
+                            // t.translate(j, j);
+                        // }
                     }
                 }
 
