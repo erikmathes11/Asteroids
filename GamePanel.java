@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.lang.Math.*;
 public class GamePanel extends JPanel
 {
     private Color c;
@@ -30,6 +31,8 @@ public class GamePanel extends JPanel
     private boolean addKeyCode39;
     private boolean addKeyCode37;
     private boolean addKeyCode32;
+    private int starsNumber;
+    private ArrayList<Star> stars;
     private ArrayList<Integer> keyCodes;
     public GamePanel (Color c)
     {
@@ -44,13 +47,14 @@ public class GamePanel extends JPanel
         asteroids = new ArrayList<Asteroid>();
         numberAsteroids = 30;
         timer = new Timer("Shot Timer");
-
         schedule = true;
         addKeyCode40 = true;
         addKeyCode38 = true;
         addKeyCode39 = true;
         addKeyCode37 = true;
         addKeyCode32 = true;
+        starsNumber = 300;
+        stars = new ArrayList<Star>();
         keyCodes = new ArrayList<Integer>();
         this.setBackground(c);
         this.setFocusable(true);
@@ -65,6 +69,11 @@ public class GamePanel extends JPanel
         t3.scale(1,1);
         t3.rotate(-Math.PI/4, 16 ,16);
         task = new SetTrueTask(player, t3);
+        while (starsNumber > 0)
+        {
+            stars.add(new Star((int)(Math.random() * 1921) + 0, (int)(Math.random() * 1081) + 0, (int)(Math.random() * 6) + 1, new Color((int)(Math.random() * 241) + 0, (int)(Math.random() * 241) + 0, 0)));
+            starsNumber--;
+        }
     }
 
     public GamePanel ()
@@ -85,6 +94,7 @@ public class GamePanel extends JPanel
         {
 
         }
+        
         g2D.drawImage(ship, t, this);
         player.drawShot(g2D, shot, this);
         while (numberAsteroids > 0)
@@ -92,10 +102,15 @@ public class GamePanel extends JPanel
             asteroids.add(new Asteroid());
             numberAsteroids--;
         }
-        for(int i = 0; i < asteroids.size(); i++)
+        for (int i = 0; i < asteroids.size(); i++)
         {
             asteroids.get(i).drawAsteroid(g2D, this, asteroids.get(i).getAsteroid());
             asteroids.get(i).teleportAsteroid();
+        }
+        for (int i = 0; i < stars.size(); i++)
+        {
+            g.setColor(stars.get(i).getColor());
+            g.fillOval(stars.get(i).getX(), stars.get(i).getY(), stars.get(i).getRadius(), stars.get(i).getRadius());
         }
         //player.teleportShots(t4);
         //player.checkForHit(asteroids);
