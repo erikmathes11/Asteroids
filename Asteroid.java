@@ -109,20 +109,14 @@ public class Asteroid
 
     public void teleportAsteroid()
     {
-        //System.out.println("Get Translate x: " + t.getTranslateX());
-        //System.out.println("Get Translate y: " + t.getTranslateY());
         if (t.getTranslateX() > 2020) //1920, +35, 1875
         {
-            //somewhat works with just first statements in whiles
             t2.setTransform(t);
             while(t2.getTranslateX() > -60 && t2.getTranslateY() > -60 && t2.getTranslateY() < 1140) //35
             {
                 t2.translate(-2, -2);
-                //t.setTransform(t2);
-                //System.out.println("t2 x Location: " + t2.getTranslateX() + " t2 y Location: " +);
             }
-            t.setTransform(t2); //-1950
-            //t.translate(-2, -2);
+            t.setTransform(t2);
         }
         if(t.getTranslateX() < -100)
         {
@@ -130,7 +124,6 @@ public class Asteroid
             while(t2.getTranslateX() < 1970 && t2.getTranslateY() > -60 && t2.getTranslateY() < 1140) //1875
             {
                 t2.translate(-2, -2);
-                //t.setTransform(t2);
             }
             t.setTransform(t2);
         }
@@ -140,10 +133,8 @@ public class Asteroid
             while(t2.getTranslateX() > -60 && t2.getTranslateX() < 1970 && t2.getTranslateY() > -60) //35
             {
                 t2.translate(-2, -2);
-                //t.setTransform(t2);
             }
             t.setTransform(t2); //-1130
-            //t.translate(-2, -2);
         }
         if(t.getTranslateY() < -100)
         {
@@ -151,7 +142,6 @@ public class Asteroid
             while(t2.getTranslateX() > -60 && t2.getTranslateX() < 1970 && t2.getTranslateY() < 1140) //1045
             {
                 t2.translate(-2, -2);
-                //t.setTransform(t2);
             }
             t.setTransform(t2);
         }

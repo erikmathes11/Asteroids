@@ -5,7 +5,7 @@ import java.awt.image.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.ArrayList; //use to just be java.util.*;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 public class GamePanel extends JPanel
@@ -29,12 +29,10 @@ public class GamePanel extends JPanel
     private boolean addKeyCode38;
     private boolean addKeyCode39;
     private boolean addKeyCode37;
+    private boolean addKeyCode32;
     private ArrayList<Integer> keyCodes;
-    //private int typeAsteroid;
-    //private Asteroid random;
     public GamePanel (Color c)
     {
-        //hello again 2
         super();
         this.c = c;
         player = new Ship();
@@ -52,22 +50,21 @@ public class GamePanel extends JPanel
         addKeyCode38 = true;
         addKeyCode39 = true;
         addKeyCode37 = true;
+        addKeyCode32 = true;
         keyCodes = new ArrayList<Integer>();
-        //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
         this.addKeyListener(new Turn());
         t.translate(500, 500);
         t.scale(1,1);
         t.rotate(-Math.PI/4, 16, 16);
-        t2.translate(516, 500); //first # was 516
+        t2.translate(516, 500);
         t2.scale(1,1);
         t2.rotate(-Math.PI/4, 16, 16);
         t3.translate(516, 500);
         t3.scale(1,1);
         t3.rotate(-Math.PI/4, 16 ,16);
         task = new SetTrueTask(player, t3);
-        //this.isFocusable();
     }
 
     public GamePanel ()
@@ -89,9 +86,7 @@ public class GamePanel extends JPanel
 
         }
         g2D.drawImage(ship, t, this);
-        //g2D.drawImage(shot, t3, this);
         player.drawShot(g2D, shot, this);
-        //random.drawAsteroid(g2D, this, asteroid);
         while (numberAsteroids > 0)
         {
             asteroids.add(new Asteroid());
@@ -104,16 +99,6 @@ public class GamePanel extends JPanel
         }
         //player.teleportShots(t4);
         //player.checkForHit(asteroids);
-
-        // random.makeAsteroids(asteroids); //, g2D, this);
-        // for (int i = 0; i < asteroids.size(); i++)
-        // {
-        // //System.out.println(i);
-        // System.out.println(asteroids.get(i).toString());
-        // asteroids.get(i).drawAsteroid(g2D,this);
-
-        // }
-
         try
         {
             Thread.sleep(40);
@@ -129,8 +114,7 @@ public class GamePanel extends JPanel
     {
         public void keyPressed(KeyEvent e)
         {
-            System.out.println(e.getKeyCode());
-            //when you press one key and then press another it thinks the other was release and the new one is being pressed
+            //System.out.println(e.getKeyCode());
             if(e.getKeyCode() == 40)//reverse
             {
                 while (addKeyCode40 == true)
@@ -138,7 +122,7 @@ public class GamePanel extends JPanel
                     keyCodes.add(40);
                     addKeyCode40 = false;
                 }
-                
+
             }
             if(e.getKeyCode() == 38)//forward
             {
@@ -169,13 +153,12 @@ public class GamePanel extends JPanel
             }
             if(e.getKeyCode() == 32)//shoot
             {
-                keyCodes.add(32);
-                while (schedule == true)
+                while (addKeyCode32 == true)
                 {
-                    timer.scheduleAtFixedRate(task, 0 , 500);
-                    schedule = false;
+                    keyCodes.add(32);
+                    addKeyCode32 = false;
                 }
-                task.setCanShoot(true);
+
             }
             for (int i = 0; i < keyCodes.size(); i++)
             {
@@ -191,9 +174,18 @@ public class GamePanel extends JPanel
                 {
                     player.rotateClockwise(t, t2, t3, original);
                 }
-                else
+                else if (keyCodes.get(i) == 37)
                 {
                     player.rotateCounterClockwise(t, t2, t3, original);
+                }
+                else
+                {
+                    while (schedule == true)
+                    {
+                        timer.scheduleAtFixedRate(task, 0 , 500);
+                        schedule = false;
+                    }
+                    task.setCanShoot(true);
                 }
             }
         }
@@ -251,7 +243,14 @@ public class GamePanel extends JPanel
             }
             if (e.getKeyCode() == 32) //shoot
             {
-                keyCodes.add(100);
+                for (int i = 0; i < keyCodes.size(); i++)
+                {
+                    if(keyCodes.get(i) == 32)
+                    {
+                        keyCodes.remove(i);
+                        addKeyCode32 = true;
+                    }
+                }
                 task.setCanShoot(false);
             }
         }
