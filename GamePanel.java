@@ -88,7 +88,7 @@ public class GamePanel extends JPanel
             asteroids.get(i).teleportAsteroid();
         }
         //player.teleportShots(t4);
-        player.checkForHit(asteroids);
+        //player.checkForHit(asteroids);
         
         // random.makeAsteroids(asteroids); //, g2D, this);
         // for (int i = 0; i < asteroids.size(); i++)
@@ -133,7 +133,7 @@ public class GamePanel extends JPanel
             }
             if(e.getKeyCode() == 32)//shoot
             {
-                //timer.schedule(new TimerTask(), 10);
+                timer.schedule(new SetTrueTask(), 3000);
                 player.shoot(t3);
             }
         }
