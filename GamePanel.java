@@ -25,6 +25,11 @@ public class GamePanel extends JPanel
     private Timer timer;
     private SetTrueTask task;
     private boolean schedule;
+    private boolean addKeyCode40;
+    private boolean addKeyCode38;
+    private boolean addKeyCode39;
+    private boolean addKeyCode37;
+    private ArrayList<Integer> keyCodes;
     //private int typeAsteroid;
     //private Asteroid random;
     public GamePanel (Color c)
@@ -43,6 +48,11 @@ public class GamePanel extends JPanel
         timer = new Timer("Shot Timer");
 
         schedule = true;
+        addKeyCode40 = true;
+        addKeyCode38 = true;
+        addKeyCode39 = true;
+        addKeyCode37 = true;
+        keyCodes = new ArrayList<Integer>();
         //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
@@ -119,42 +129,130 @@ public class GamePanel extends JPanel
     {
         public void keyPressed(KeyEvent e)
         {
-            //System.out.println(e.getKeyCode());
+            System.out.println(e.getKeyCode());
+            //when you press one key and then press another it thinks the other was release and the new one is being pressed
             if(e.getKeyCode() == 40)//reverse
             {
-                player.moveBackward(t, t2, t3);
+                while (addKeyCode40 == true)
+                {
+                    keyCodes.add(40);
+                    addKeyCode40 = false;
+                }
+                
             }
             if(e.getKeyCode() == 38)//forward
             {
-                player.moveForward(t, t2, t3);
+                while (addKeyCode38 == true)
+                {
+                    keyCodes.add(38);
+                    addKeyCode38 = false;
+                }
+
             }
             if(e.getKeyCode() == 39)//clockwise
             {
-                player.rotateClockwise(t, t2, t3, original);
+                while (addKeyCode39 == true)
+                {
+                    keyCodes.add(39);
+                    addKeyCode39 = false;
+                }
+
             }
             if(e.getKeyCode() == 37)//counter clockwise
             {
-                player.rotateCounterClockwise(t, t2, t3, original);
+                while (addKeyCode37 == true)
+                {
+                    keyCodes.add(37);
+                    addKeyCode37 = false;
+                }
+
             }
             if(e.getKeyCode() == 32)//shoot
             {
+                keyCodes.add(32);
                 while (schedule == true)
                 {
                     timer.scheduleAtFixedRate(task, 0 , 500);
                     schedule = false;
                 }
                 task.setCanShoot(true);
-                System.out.println("Set True");
+            }
+            for (int i = 0; i < keyCodes.size(); i++)
+            {
+                if (keyCodes.get(i) == 40)
+                {
+                    player.moveBackward(t, t2, t3);
+                }
+                else if (keyCodes.get(i) == 38)
+                {
+                    player.moveForward(t, t2, t3);
+                }
+                else if (keyCodes.get(i) == 39)
+                {
+                    player.rotateClockwise(t, t2, t3, original);
+                }
+                else
+                {
+                    player.rotateCounterClockwise(t, t2, t3, original);
+                }
             }
         }
 
         public void keyReleased(KeyEvent e)
         {
             System.out.println(e.getKeyCode());
-            if (e.getKeyCode() == 32)
+            if(e.getKeyCode() == 40)//reverse
             {
+                for (int i = 0; i < keyCodes.size(); i++)
+                {
+                    if(keyCodes.get(i) == 40)
+                    {
+                        keyCodes.remove(i);
+                        addKeyCode40 = true;
+                    }
+                }
+
+            }
+            if(e.getKeyCode() == 38)//forward
+            {
+                for (int i = 0; i < keyCodes.size(); i++)
+                {
+                    if(keyCodes.get(i) == 38)
+                    {
+                        keyCodes.remove(i);
+                        addKeyCode38 = true;
+                    }
+                }
+
+            }
+            if(e.getKeyCode() == 39)//clockwise
+            {
+                for (int i = 0; i < keyCodes.size(); i++)
+                {
+                    if(keyCodes.get(i) == 39)
+                    {
+                        keyCodes.remove(i);
+                        addKeyCode39 = true;
+                    }
+                }
+
+            }
+            if(e.getKeyCode() == 37)//counter clockwise
+            {
+                for (int i = 0; i < keyCodes.size(); i++)
+                {
+                    if(keyCodes.get(i) == 37)
+                    {
+                        keyCodes.remove(i);
+                        addKeyCode37 = true;
+                    }
+                }
+
+            }
+            if (e.getKeyCode() == 32) //shoot
+            {
+                keyCodes.add(100);
                 task.setCanShoot(false);
-                System.out.println("Set False");
             }
         }
 
