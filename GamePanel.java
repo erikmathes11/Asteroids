@@ -23,6 +23,7 @@ public class GamePanel extends JPanel
     private ArrayList<Asteroid> asteroids;
     private int numberAsteroids;
     private Timer timer;
+    private SetTrueTask task;
     //private int typeAsteroid;
     //private Asteroid random;
     public GamePanel (Color c)
@@ -39,6 +40,7 @@ public class GamePanel extends JPanel
         asteroids = new ArrayList<Asteroid>();
         numberAsteroids = 30;
         timer = new Timer("Shot Timer");
+        task = new SetTrueTask();
         //random = new Asteroid(.5, 100);
         this.setBackground(c);
         this.setFocusable(true);
@@ -89,7 +91,7 @@ public class GamePanel extends JPanel
         }
         //player.teleportShots(t4);
         //player.checkForHit(asteroids);
-        
+
         // random.makeAsteroids(asteroids); //, g2D, this);
         // for (int i = 0; i < asteroids.size(); i++)
         // {
@@ -133,8 +135,10 @@ public class GamePanel extends JPanel
             }
             if(e.getKeyCode() == 32)//shoot
             {
-                timer.schedule(new SetTrueTask(), 3000);
+                timer.schedule(new SetTrueTask(), 3000); //sets it to true, then false, then checks what it is
+                //timer.schedule() must be modified to return true or false in if statement
                 player.shoot(t3);
+                
             }
         }
 
