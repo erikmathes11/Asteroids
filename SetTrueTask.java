@@ -1,8 +1,33 @@
 import java.util.*;
+import java.awt.geom.*;
 public class SetTrueTask extends TimerTask
 {
+    private boolean canShoot;
+    private Ship player;
+    private AffineTransform t3;
+    public SetTrueTask(Ship player, AffineTransform t3)
+    {
+        super();
+        canShoot = false;
+        this.player = player;
+        this.t3 = t3;
+    }
+
     public void run()
     {
-        System.out.println("Times Up!");
+        if (canShoot == true)
+        {
+            player.shoot(t3);
+        }
+    }
+
+    public void setCanShoot(boolean canShoot2)
+    {
+        canShoot = canShoot2;
+    }
+
+    public boolean getCanShoot()
+    {
+        return canShoot;
     }
 }
