@@ -25,8 +25,10 @@ public class GamePanel extends JPanel
     private int numberAsteroids;
     private Timer timer;
     private ShootTask task;
+    private DriftTask task2;
 
     private boolean schedule;
+    private boolean schedule2;
 
     private boolean addKeyCode40;
     private boolean addKeyCode38;
@@ -51,6 +53,7 @@ public class GamePanel extends JPanel
         timer = new Timer();
 
         schedule = true;
+        schedule2 = true;
 
         addKeyCode40 = true;
         addKeyCode38 = true;
@@ -73,7 +76,7 @@ public class GamePanel extends JPanel
         t3.scale(1,1);
         t3.rotate(-Math.PI/4, 16 ,16);
         task = new ShootTask(player, t3);
-
+        task2 = new DriftTask();
         while (starsNumber > 0)
         {
             stars.add(new Star((int)(Math.random() * 1921) + 0, (int)(Math.random() * 1081) + 0, (int)(Math.random() * 6) + 1, new Color((int)(Math.random() * 241) + 0, (int)(Math.random() * 241) + 0, 0)));
@@ -252,37 +255,72 @@ public class GamePanel extends JPanel
                         }
                     }
                 }
-                timer.schedule(new DriftTask(t, t2, t3), 0);
-                boolean repeat = true;
-                while(repeat == true)
+                int drift = 1;
+                if (schedule2 == true) //if you realease again before the time is up it glitches out
                 {
-                    if(DriftTask.getDecreaseSpeed() == true && DriftTask2.getDecreaseSpeed2() == false)
+                    timer.scheduleAtFixedRate(task2, 0, 10000);
+                    schedule2 = false;
+                }
+
+                while(drift > .1)
+                {
+                    System.out.println("Drift");
+                    t.translate(drift, drift);
+                    t2.translate(drift, drift);
+                    t3.translate(drift, drift);
+                    if (task2.getChangeDrift() == true)
                     {
-                        t.translate(.5, .5);
-                        t2.translate(.5, .5);
-                        t3.translate(.5, .5);
-                    }
-                    else if(DriftTask2.getDecreaseSpeed2() == true && DriftTask3.getDecreaseSpeed3() == false)
-                    {
-                        DriftTask.setDecreaseSpeed(false);
-                        t.translate(.25, .25);
-                        t2.translate(.25, .25);
-                        t3.translate(.25, .25);
-                    }
-                    else if(DriftTask3.getDecreaseSpeed3() == true && DriftTask4.getDecreaseSpeed4() == false)
-                    {
-                        DriftTask2.setDecreaseSpeed2(false);
-                        t.translate(.125, .125);
-                        t2.translate(.125, .125);
-                        t3.translate(.125, .125);
-                    }
-                    else
-                    {
-                        DriftTask3.setDecreaseSpeed3(false);
-                        DriftTask4.setDecreaseSpeed4(false);
-                        repeat = false;
+                        drift /= 2;
+                        System.out.println("Change Drift");
+                        task2.setChangeDrift(false);
                     }
                 }
+
+                // timer.schedule(new DriftTask(t, t2, t3), 0);
+                // boolean repeat = true;
+                // while(repeat == true)
+                // {
+                // // System.out.println("DecreaseSpeed: " + DriftTask.getDecreaseSpeed());
+                // // System.out.println("DecreaseSpeed2: " + DriftTask2.getDecreaseSpeed2());
+                // // System.out.println("DecreaseSpeed3: " + DriftTask3.getDecreaseSpeed3());
+                // // System.out.println("DecreaseSpeed4: " + DriftTask4.getDecreaseSpeed4());
+                // if(DriftTask.getDecreaseSpeed() == true && DriftTask2.getDecreaseSpeed2() == false)
+                // {
+                // System.out.println("Translate .5");
+                // // t.translate(.5, .5);
+                // // t2.translate(.5, .5);
+                // // t3.translate(.5, .5);
+                // }
+                // else if(DriftTask2.getDecreaseSpeed2() == true && DriftTask3.getDecreaseSpeed3() == false)
+                // {
+                // DriftTask.setDecreaseSpeed(false);
+                // System.out.println("Translate .25");
+                // // t.translate(.25, .25);
+                // // t2.translate(.25, .25);
+                // // t3.translate(.25, .25);
+                // }
+                // else if(DriftTask3.getDecreaseSpeed3() == true && DriftTask4.getDecreaseSpeed4() == false)
+                // {
+                // DriftTask2.setDecreaseSpeed2(false);
+                // System.out.println("Translate .125");
+                // // t.translate(.125, .125);
+                // // t2.translate(.125, .125);
+                // // t3.translate(.125, .125);
+                // }
+                // else
+                // {
+                // System.out.println("stop");
+                // DriftTask3.setDecreaseSpeed3(false);
+                // DriftTask4.setDecreaseSpeed4(false);
+                // repeat = false;
+                // }
+                // // System.out.println("x: " + t.getTranslateX());
+                // // System.out.println("y: " + t.getTranslateY());
+                // }
+                // // DriftTask.setDecreaseSpeed(false);
+                // // DriftTask2.setDecreaseSpeed2(false);
+                // // DriftTask3.setDecreaseSpeed3(false);
+                // // DriftTask4.setDecreaseSpeed4(false);
             }
             if(e.getKeyCode() == 39)//clockwise
             {

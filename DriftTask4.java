@@ -17,6 +17,7 @@ public class DriftTask4 extends TimerTask
     public void run()
     {
         decreaseSpeed4 = true;
+        System.out.println("decreaseSpeed4 true");
     }
 
     public static boolean getDecreaseSpeed4()

@@ -18,8 +18,9 @@ public class DriftTask3 extends TimerTask
 
     public void run()
     {
-        timer.schedule(new DriftTask4(t, t2, t3), 250);
+        timer.schedule(new DriftTask4(t, t2, t3), 5);
         decreaseSpeed3 = true;
+        System.out.println("decreaseSpeed3 true");
     }
 
     public static boolean getDecreaseSpeed3()

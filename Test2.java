@@ -51,8 +51,9 @@ public class Test2 extends JPanel
         //t.scale(50,50);
         //t.rotate(Math.PI/4,12,12);
         //g2D.setTransform(t);
-        //g2D.drawImage(image, t2, this);
-        g.drawImage(image, 517, 517, this); //works
+        t.translate(.5, .5);
+        g2D.drawImage(image, t, this);
+        //g.drawImage(image, 517, 517, this); //works
         try
         {
             Thread.sleep(40);
