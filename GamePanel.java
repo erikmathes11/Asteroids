@@ -24,8 +24,10 @@ public class GamePanel extends JPanel
     private ArrayList<Asteroid> asteroids;
     private int numberAsteroids;
     private Timer timer;
-    private SetTrueTask task;
+    private ShootTask task;
+
     private boolean schedule;
+
     private boolean addKeyCode40;
     private boolean addKeyCode38;
     private boolean addKeyCode39;
@@ -46,8 +48,10 @@ public class GamePanel extends JPanel
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
         numberAsteroids = 30;
-        timer = new Timer("Shot Timer");
+        timer = new Timer();
+
         schedule = true;
+
         addKeyCode40 = true;
         addKeyCode38 = true;
         addKeyCode39 = true;
@@ -68,7 +72,8 @@ public class GamePanel extends JPanel
         t3.translate(516, 500);
         t3.scale(1,1);
         t3.rotate(-Math.PI/4, 16 ,16);
-        task = new SetTrueTask(player, t3);
+        task = new ShootTask(player, t3);
+
         while (starsNumber > 0)
         {
             stars.add(new Star((int)(Math.random() * 1921) + 0, (int)(Math.random() * 1081) + 0, (int)(Math.random() * 6) + 1, new Color((int)(Math.random() * 241) + 0, (int)(Math.random() * 241) + 0, 0)));
@@ -94,6 +99,11 @@ public class GamePanel extends JPanel
     {
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
+        for (int i = 0; i < stars.size(); i++)
+        {
+            g.setColor(stars.get(i).getColor());
+            g.fillOval(stars.get(i).getX(), stars.get(i).getY(), stars.get(i).getRadius(), stars.get(i).getRadius());
+        }
         g2D.drawImage(ship, t, this);
         player.drawShot(g2D, shot, this);
         while (numberAsteroids > 0)
@@ -105,11 +115,6 @@ public class GamePanel extends JPanel
         {
             asteroids.get(i).drawAsteroid(g2D, this, asteroids.get(i).getAsteroid());
             asteroids.get(i).teleportAsteroid();
-        }
-        for (int i = 0; i < stars.size(); i++)
-        {
-            g.setColor(stars.get(i).getColor());
-            g.fillOval(stars.get(i).getX(), stars.get(i).getY(), stars.get(i).getRadius(), stars.get(i).getRadius());
         }
         //player.teleportShots(t4);
         //player.checkForHit(asteroids);
@@ -140,6 +145,7 @@ public class GamePanel extends JPanel
             }
             if(e.getKeyCode() == 38)//forward
             {
+
                 while (addKeyCode38 == true)
                 {
                     keyCodes.add(38);
@@ -229,6 +235,7 @@ public class GamePanel extends JPanel
             }
             if(e.getKeyCode() == 38)//forward
             {
+
                 for (int i = 0; i < keyCodes.size(); i++)
                 {
                     if(keyCodes.get(i) == 38)
@@ -243,13 +250,39 @@ public class GamePanel extends JPanel
                         {
 
                         }
-                        // for (double j = 1.0; j > .1; j /= 2.0)
-                        // {
-                            // t.translate(j, j);
-                        // }
                     }
                 }
-
+                timer.schedule(new DriftTask(t, t2, t3), 0);
+                boolean repeat = true;
+                while(repeat == true)
+                {
+                    if(DriftTask.getDecreaseSpeed() == true && DriftTask2.getDecreaseSpeed2() == false)
+                    {
+                        t.translate(.5, .5);
+                        t2.translate(.5, .5);
+                        t3.translate(.5, .5);
+                    }
+                    else if(DriftTask2.getDecreaseSpeed2() == true && DriftTask3.getDecreaseSpeed3() == false)
+                    {
+                        DriftTask.setDecreaseSpeed(false);
+                        t.translate(.25, .25);
+                        t2.translate(.25, .25);
+                        t3.translate(.25, .25);
+                    }
+                    else if(DriftTask3.getDecreaseSpeed3() == true && DriftTask4.getDecreaseSpeed4() == false)
+                    {
+                        DriftTask2.setDecreaseSpeed2(false);
+                        t.translate(.125, .125);
+                        t2.translate(.125, .125);
+                        t3.translate(.125, .125);
+                    }
+                    else
+                    {
+                        DriftTask3.setDecreaseSpeed3(false);
+                        DriftTask4.setDecreaseSpeed4(false);
+                        repeat = false;
+                    }
+                }
             }
             if(e.getKeyCode() == 39)//clockwise
             {

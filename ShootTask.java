@@ -1,11 +1,11 @@
 import java.util.*;
 import java.awt.geom.*;
-public class SetTrueTask extends TimerTask
+public class ShootTask extends TimerTask
 {
     private boolean canShoot;
     private Ship player;
     private AffineTransform t3;
-    public SetTrueTask(Ship player, AffineTransform t3)
+    public ShootTask(Ship player, AffineTransform t3)
     {
         super();
         canShoot = false;
