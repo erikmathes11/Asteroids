@@ -8,7 +8,7 @@ import javax.imageio.*;
 import java.io.*;
 public class Asteroid
 {
-    private double size;
+    private int size;
     private int pointValue;
     private AffineTransform t;
     private AffineTransform t2;
@@ -146,20 +146,43 @@ public class Asteroid
             t.setTransform(t2);
         }
     }
-    
+
     public AffineTransform getT()
     {
         return t;
     }
-    
+
     public double getScale()
     {
         return scale;
     }
     
-    
-    
-    
+    public double getSize()
+    {
+        double size2 = 0;
+        if (size == 1)
+        {
+            size2 = 1;
+        }
+        else if (size == 2)
+        {
+            size2 = .8;
+        }
+        else if (size == 3)
+        {
+            size2 = .6;
+        }
+        else if (size == 4)
+        {
+            size2 = .4;
+        }
+        else
+        {
+            size2 = .2;
+        }
+        return size2;
+    }
+
     
     
     

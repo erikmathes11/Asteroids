@@ -29,6 +29,7 @@ public class GamePanel extends JPanel
 
     private boolean schedule;
     private boolean schedule2;
+    private boolean driftFinished;
 
     private boolean addKeyCode40;
     private boolean addKeyCode38;
@@ -49,11 +50,12 @@ public class GamePanel extends JPanel
         t4 = new AffineTransform();
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
-        numberAsteroids = 30;
+        numberAsteroids = 30; //30
         timer = new Timer();
 
         schedule = true;
         schedule2 = true;
+        driftFinished = true;
 
         addKeyCode40 = true;
         addKeyCode38 = true;
@@ -120,7 +122,7 @@ public class GamePanel extends JPanel
             asteroids.get(i).teleportAsteroid();
         }
         //player.teleportShots(t4);
-        //player.checkForHit(asteroids);
+        player.checkForHit(asteroids);
         try
         {
             Thread.sleep(40);
@@ -255,27 +257,33 @@ public class GamePanel extends JPanel
                         }
                     }
                 }
-                int drift = 1;
-                if (schedule2 == true) //if you realease again before the time is up it glitches out
-                {
-                    timer.scheduleAtFixedRate(task2, 0, 10000);
-                    schedule2 = false;
-                }
+                // int drift = 1;
+                // if (schedule2 == true) //if you realease again before the time is up it glitches out
+                // {
+                    // timer.scheduleAtFixedRate(task2, 0, 10000);
+                    // schedule2 = false;
+                // }
 
-                while(drift > .1)
-                {
-                    System.out.println("Drift");
-                    t.translate(drift, drift);
-                    t2.translate(drift, drift);
-                    t3.translate(drift, drift);
-                    if (task2.getChangeDrift() == true)
-                    {
-                        drift /= 2;
-                        System.out.println("Change Drift");
-                        task2.setChangeDrift(false);
-                    }
-                }
-
+                // if(driftFinished == true)
+                // {
+                    // while(drift > .1)
+                    // {
+                        // driftFinished = false;
+                        // System.out.println("Drift");
+                        // t.translate(drift, drift);
+                        // t2.translate(drift, drift);
+                        // t3.translate(drift, drift);
+                        // if (task2.getChangeDrift() == true)
+                        // {
+                            // drift /= 2;
+                            // System.out.println("Change Drift");
+                            // task2.setChangeDrift(false);
+                        // }
+                    // }
+                    // driftFinished = true;
+                // }
+                
+                
                 // timer.schedule(new DriftTask(t, t2, t3), 0);
                 // boolean repeat = true;
                 // while(repeat == true)

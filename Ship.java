@@ -72,82 +72,107 @@ public class Ship
         }
     }
 
+    public void checkForHit(ArrayList<Asteroid> asteroids)
+    {
+        for (int i = 0; i < shots.size(); i++)
+        {
+            for (int j = 0; j < asteroids.size(); j++)
+            {
+                double diameterAsteroid = asteroids.get(j).getSize() * 31;
+                double diameterShot = 7;
+                if(j == asteroids.size())
+                {
+                    j--;
+                }
+                if(i == shots.size())
+                {
+                    i--;
+                }
+                if (shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
+                {
+                    asteroids.remove(j);
+                    shots.remove(i);
+                }
+            }
+        }
+    }
+
     // public void checkForHit(ArrayList<Asteroid> asteroids)
     // {
-        // int shotsSize = shots.size();
-        // int asteroidsSize = asteroids.size();
-        // if (shotsSize != 0 && asteroidsSize != 0)
-        // {
-            // for (int i = 0; i < shotsSize; i++)
-            // {
-                // for (int j = 0; j < asteroidsSize; j++)
-                // {
-                    // double shotX = 0;
-                    // double shotY = 0;
+    // int shotsSize = shots.size();
+    // int asteroidsSize = asteroids.size();
+    // if (shotsSize != 0 && asteroidsSize != 0)
+    // {
+    // for (int i = 0; i < shotsSize; i++)
+    // {
+    // for (int j = 0; j < asteroidsSize; j++)
+    // {
+    // double shotX = 0;
+    // double shotY = 0;
 
-                    // double asteroidX = 0;
-                    // double asteroidY = 0;
-                    // try
-                    // {
-                        // shotX = shots.get(i).getTranslateX();
-                        // shotY = shots.get(i).getTranslateY();
-                    // }
-                    // catch (Exception e)
-                    // {
-                        // System.out.println("Error with i"); //i-- didn't work
-                        // System.out.println("Before");
-                        // System.out.println("J: " + j);
-                        // System.out.println("I: " + i);
-                        // System.out.println("Asteroids Size: " + asteroidsSize);
-                        // System.out.println("Shots Size: " + shotsSize);
-                        // i--;
-                        // System.out.println("After");
-                        // System.out.println("J: " + j);
-                        // System.out.println("I: " + i);
-                        // System.out.println("Asteroids Size: " + asteroidsSize);
-                        // System.out.println("Shots Size: " + shotsSize);
-                    // }
-                    // try
-                    // {
-                        // asteroidX = asteroids.get(j).getT().getTranslateX();
-                        // asteroidY = asteroids.get(j).getT().getTranslateY();
-                    // }
-                    // catch (Exception e)
-                    // {
-                        // System.out.println("Error with j");
-                        // System.out.println("Before");
-                        // System.out.println("J: " + j);
-                        // System.out.println("I: " + i);
-                        // System.out.println("Asteroids Size: " + asteroidsSize);
-                        // System.out.println("Shots Size: " + shotsSize);
-                        // j--;
-                        // System.out.println("J: " + j);
-                        // System.out.println("I: " + i);
-                        // System.out.println("Asteroids Size: " + asteroidsSize);
-                        // System.out.println("Shots Size: " + shotsSize);
-                    // }
+    // double asteroidX = 0;
+    // double asteroidY = 0;
+    // try
+    // {
+    // shotX = shots.get(i).getTranslateX();
+    // shotY = shots.get(i).getTranslateY();
+    // }
+    // catch (Exception e)
+    // {
+    // System.out.println("Error with i"); //i-- didn't work
+    // System.out.println("Before");
+    // System.out.println("J: " + j);
+    // System.out.println("I: " + i);
+    // System.out.println("Asteroids Size: " + asteroidsSize);
+    // System.out.println("Shots Size: " + shotsSize);
+    // i--;
+    // System.out.println("After");
+    // System.out.println("J: " + j);
+    // System.out.println("I: " + i);
+    // System.out.println("Asteroids Size: " + asteroidsSize);
+    // System.out.println("Shots Size: " + shotsSize);
+    // }
+    // try
+    // {
+    // asteroidX = asteroids.get(j).getT().getTranslateX();
+    // asteroidY = asteroids.get(j).getT().getTranslateY();
+    // }
+    // catch (Exception e)
+    // {
+    // System.out.println("Error with j");
+    // System.out.println("Before");
+    // System.out.println("J: " + j);
+    // System.out.println("I: " + i);
+    // System.out.println("Asteroids Size: " + asteroidsSize);
+    // System.out.println("Shots Size: " + shotsSize);
+    // j--;
+    // System.out.println("J: " + j);
+    // System.out.println("I: " + i);
+    // System.out.println("Asteroids Size: " + asteroidsSize);
+    // System.out.println("Shots Size: " + shotsSize);
+    // }
 
-                    // //still problems with if statements
-                    // System.out.println("Before Checking for Hit");
-                    // System.out.println("Asteroids Size: " + asteroidsSize);
-                    // System.out.println("J: " + j);
-                    // if (shotX > asteroidX && shotX < asteroidX + (31 * asteroids.get(j).getScale()))
-                    // {
-                        // asteroids.remove(j);
-                        // shots.remove(i);
-                        // shotsSize--;
-                        // asteroidsSize--;
-                    // }
-                    // if (shotY > asteroidY && shotY < asteroidY + (31 * asteroids.get(j).getScale()))
-                    // {
-                        // asteroids.remove(j);
-                        // shots.remove(i);
-                        // shotsSize--;
-                        // asteroidsSize--;
-                    // }
-                // }
-            // }
-        // }
+    // //still problems with if statements
+    // System.out.println("Before Checking for Hit");
+    // System.out.println("Asteroids Size: " + asteroidsSize);
+    // System.out.println("J: " + j);
+    // if (shotX > asteroidX && shotX < asteroidX + (31 * asteroids.get(j).getScale()))
+    // {
+    // asteroids.remove(j);
+    // shots.remove(i);
+    // shotsSize--;
+    // asteroidsSize--;
+    // }
+    // if (shotY > asteroidY && shotY < asteroidY + (31 * asteroids.get(j).getScale()))
+    // {
+    // asteroids.remove(j);
+    // shots.remove(i);
+    // shotsSize--;
+    // asteroidsSize--;
+    // }
+    // }
+    // }
+    // }
     // }
 
     // public void teleportShots(AffineTransform t4)
