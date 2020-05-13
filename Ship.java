@@ -78,7 +78,7 @@ public class Ship
         {
             for (int j = 0; j < asteroids.size(); j++)
             {
-                double diameterAsteroid = asteroids.get(j).getSize() * 31;
+                double diameterAsteroid = asteroids.get(j).getSize2() * 31;
                 double diameterShot = 7;
                 if(j == asteroids.size())
                 {
@@ -88,7 +88,35 @@ public class Ship
                 {
                     i--;
                 }
-                if (shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
+                if (asteroids.get(j).getSize() == 1 && shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
+                {
+                    asteroids.get(j).getT().scale(1, 1);
+                    asteroids.get(j).getT().scale(.8, .8);
+                    asteroids.get(j).setSize(2);
+                    shots.remove(i);
+                }
+                else if (asteroids.get(j).getSize() == 2 && shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
+                {
+                    asteroids.get(j).getT().scale(10.0 / 8.0, 10.0 / 8.0);
+                    asteroids.get(j).getT().scale(.6, .6);
+                    asteroids.get(j).setSize(3);
+                    shots.remove(i);
+                }
+                else if (asteroids.get(j).getSize() == 3 && shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
+                {
+                    asteroids.get(j).getT().scale(10.0 / 6.0, 10.0 / 6.0);
+                    asteroids.get(j).getT().scale(.4, .4);
+                    asteroids.get(j).setSize(4);
+                    shots.remove(i);
+                }
+                else if (asteroids.get(j).getSize() == 4 && shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
+                {
+                    asteroids.get(j).getT().scale(10.0 / 4.0, 10.0 / 4.0);
+                    asteroids.get(j).getT().scale(.2, .2);
+                    asteroids.get(j).setSize(5);
+                    shots.remove(i);
+                }
+                else if (shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid)
                 {
                     asteroids.remove(j);
                     shots.remove(i);

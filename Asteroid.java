@@ -157,7 +157,17 @@ public class Asteroid
         return scale;
     }
     
-    public double getSize()
+    public int getSize()
+    {
+        return size;
+    }
+    
+    public void setSize(int newSize)
+    {
+        size = newSize;
+    }
+    
+    public double getSize2()
     {
         double size2 = 0;
         if (size == 1)
