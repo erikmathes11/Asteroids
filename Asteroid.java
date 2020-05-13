@@ -62,7 +62,7 @@ public class Asteroid
         {
 
         }
-        size = (int)(Math.random() * 5) + 1;
+        size = (int)(Math.random() * 4) + 1;
         if (size == 1)
         {
             pointValue = 100;
@@ -81,17 +81,11 @@ public class Asteroid
             t.scale(.6, .6);
             scale = .6;
         }
-        else if (size == 4)
+        else
         {
             pointValue = 400;
             t.scale(.4, .4);
             scale = .4;
-        }
-        else
-        {
-            pointValue = 500;
-            t.scale(.2, .2);
-            scale = .2;
         }
 
     }
@@ -182,13 +176,9 @@ public class Asteroid
         {
             size2 = .6;
         }
-        else if (size == 4)
-        {
-            size2 = .4;
-        }
         else
         {
-            size2 = .2;
+            size2 = .4;
         }
         return size2;
     }

@@ -16,16 +16,24 @@ public class GamePanel extends JPanel
     private BufferedImage ship;
     private BufferedImage shot;
     private BufferedImage asteroid;
+    private BufferedImage startMessage;
+    private BufferedImage startMessage2;
     private AffineTransform t;
     private AffineTransform t2;
     private AffineTransform t3;
     private AffineTransform t4;
+    private AffineTransform t5;
     private AffineTransform original;
     private ArrayList<Asteroid> asteroids;
     private int numberAsteroids;
+    private int numberAsteroidsOriginal;
+    private int asteroidsToAdd;
     private Timer timer;
     private ShootTask task;
     private DriftTask task2;
+    private boolean displayMessage;
+    private boolean displayMessage2;
+    private int countEnters;
 
     private boolean schedule;
     private boolean schedule2;
@@ -48,10 +56,15 @@ public class GamePanel extends JPanel
         t2 = new AffineTransform();
         t3 = new AffineTransform();
         t4 = new AffineTransform();
+        t5 = new AffineTransform();
+        t5.translate(600, 100);
+        t5.scale(10, 10);
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
-        numberAsteroids = 30; //30
         timer = new Timer();
+        displayMessage = true;
+        displayMessage2 = false;
+        countEnters = 0;
 
         schedule = true;
         schedule2 = true;
@@ -88,11 +101,16 @@ public class GamePanel extends JPanel
         {
             ship = ImageIO.read(new File("download (315).png"));
             shot = ImageIO.read(new File("shot.png"));
+            startMessage = ImageIO.read(new File("startMessage.png"));
+            startMessage2 = ImageIO.read(new File("startMessage (2).png"));
         }
         catch (Exception e)
         {
 
         }
+        numberAsteroids = 0;
+        numberAsteroidsOriginal = 0;
+        asteroidsToAdd = 0;
     }
 
     public GamePanel ()
@@ -110,7 +128,22 @@ public class GamePanel extends JPanel
             g.fillOval(stars.get(i).getX(), stars.get(i).getY(), stars.get(i).getRadius(), stars.get(i).getRadius());
         }
         g2D.drawImage(ship, t, this);
+        if (displayMessage == true)
+        {
+            g2D.drawImage(startMessage, t5, this);
+        }
+        else if (displayMessage2 == true)
+        {
+            g2D.drawImage(startMessage2, t5, this);
+        }
         player.drawShot(g2D, shot, this);
+        if (countEnters == 3 && numberAsteroids == 0)
+        {
+            System.out.println("Next Wave");
+            // asteroidsToAdd += 10;
+            // numberAsteroids = numberAsteroidsOriginal + asteroidsToAdd;
+            // numberAsteroidsOriginal = numberAsteroids;
+        }
         while (numberAsteroids > 0)
         {
             asteroids.add(new Asteroid());
@@ -123,6 +156,9 @@ public class GamePanel extends JPanel
         }
         //player.teleportShots(t4);
         player.checkForHit(asteroids);
+
+
+
         try
         {
             Thread.sleep(40);
@@ -138,7 +174,7 @@ public class GamePanel extends JPanel
     {
         public void keyPressed(KeyEvent e)
         {
-            //System.out.println(e.getKeyCode());
+            System.out.println(e.getKeyCode());
             if(e.getKeyCode() == 40)//reverse
             {
                 while (addKeyCode40 == true)
@@ -221,6 +257,24 @@ public class GamePanel extends JPanel
                     task.setCanShoot(true);
                 }
             }
+            if (e.getKeyCode() == 10)
+            {
+                countEnters++;
+                if (countEnters == 1)
+                {
+                    displayMessage = false;
+                    displayMessage2 = true;
+                }
+                
+                if (countEnters == 2)
+                {
+                    displayMessage2 = false;
+                    numberAsteroids = 30;
+                    numberAsteroidsOriginal = 30;
+                    countEnters = 3;
+                }
+                
+            }
         }
 
         public void keyReleased(KeyEvent e)
@@ -260,30 +314,29 @@ public class GamePanel extends JPanel
                 // int drift = 1;
                 // if (schedule2 == true) //if you realease again before the time is up it glitches out
                 // {
-                    // timer.scheduleAtFixedRate(task2, 0, 10000);
-                    // schedule2 = false;
+                // timer.scheduleAtFixedRate(task2, 0, 10000);
+                // schedule2 = false;
                 // }
 
                 // if(driftFinished == true)
                 // {
-                    // while(drift > .1)
-                    // {
-                        // driftFinished = false;
-                        // System.out.println("Drift");
-                        // t.translate(drift, drift);
-                        // t2.translate(drift, drift);
-                        // t3.translate(drift, drift);
-                        // if (task2.getChangeDrift() == true)
-                        // {
-                            // drift /= 2;
-                            // System.out.println("Change Drift");
-                            // task2.setChangeDrift(false);
-                        // }
-                    // }
-                    // driftFinished = true;
+                // while(drift > .1)
+                // {
+                // driftFinished = false;
+                // System.out.println("Drift");
+                // t.translate(drift, drift);
+                // t2.translate(drift, drift);
+                // t3.translate(drift, drift);
+                // if (task2.getChangeDrift() == true)
+                // {
+                // drift /= 2;
+                // System.out.println("Change Drift");
+                // task2.setChangeDrift(false);
                 // }
-                
-                
+                // }
+                // driftFinished = true;
+                // }
+
                 // timer.schedule(new DriftTask(t, t2, t3), 0);
                 // boolean repeat = true;
                 // while(repeat == true)
