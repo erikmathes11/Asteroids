@@ -35,6 +35,7 @@ public class GamePanel extends JPanel
     private boolean displayMessage;
     private boolean displayMessage2;
     private int countEnters;
+    private boolean windowClose;
 
     private boolean schedule;
     private boolean schedule2;
@@ -48,7 +49,8 @@ public class GamePanel extends JPanel
     private int starsNumber;
     private ArrayList<Star> stars;
     private ArrayList<Integer> keyCodes;
-    public GamePanel (Color c)
+    private JFrame frame1;
+    public GamePanel (Color c, JFrame frame1)
     {
         super();
         this.c = c;
@@ -58,7 +60,7 @@ public class GamePanel extends JPanel
         t3 = new AffineTransform();
         t4 = new AffineTransform();
         t5 = new AffineTransform();
-        t5.translate(600, 100);
+        t5.translate(645, 100);
         t5.scale(10, 10);
         original = new AffineTransform();
         asteroids = new ArrayList<Asteroid>();
@@ -82,6 +84,8 @@ public class GamePanel extends JPanel
         this.setBackground(c);
         this.setFocusable(true);
         this.addKeyListener(new Turn());
+        this.frame1 = frame1;
+        frame1.addWindowListener(new WindowListener1());
         t.translate(500, 500);
         t.scale(1,1);
         t.rotate(-Math.PI/4, 16, 16);
@@ -113,6 +117,7 @@ public class GamePanel extends JPanel
         numberAsteroidsOriginal = 0;
         asteroidsToAdd = 0;
         numberAsteroidsOnScreen = 0;
+        windowClose = false;
     }
 
     public GamePanel ()
@@ -139,12 +144,15 @@ public class GamePanel extends JPanel
             g2D.drawImage(startMessage2, t5, this);
         }
         player.drawShot(g2D, shot, this);
+        //System.out.println("Count Enters: " + countEnters);
+        //System.out.println("Asteroids on Screen: " + numberAsteroidsOnScreen);
         if (countEnters == 3 && numberAsteroidsOnScreen == 0)
         {
-            System.out.println("Next Wave");
-            // asteroidsToAdd += 10;
-            // numberAsteroids = numberAsteroidsOriginal + asteroidsToAdd;
-            // numberAsteroidsOriginal = numberAsteroids;
+            //System.out.println("Next Wave");
+            asteroidsToAdd += 10;
+            numberAsteroids = numberAsteroidsOriginal + asteroidsToAdd;
+            numberAsteroidsOriginal = numberAsteroids;
+            numberAsteroidsOnScreen = numberAsteroids;
         }
         while (numberAsteroids > 0)
         {
@@ -160,7 +168,6 @@ public class GamePanel extends JPanel
         player.checkForHit(asteroids, this);
 
 
-
         try
         {
             Thread.sleep(40);
@@ -171,12 +178,22 @@ public class GamePanel extends JPanel
         }
         this.repaint();
     }
-    
+
     public void setNumberAsteroidsOnScreen ()
     {
         numberAsteroidsOnScreen--;
     }
 
+    public Ship getShip ()
+    {
+        return player;
+    }
+
+    public boolean getWindowClose()
+    {
+        return windowClose;
+    }
+    
     public class Turn extends KeyAdapter
     {
         public void keyPressed(KeyEvent e)
@@ -264,7 +281,7 @@ public class GamePanel extends JPanel
                     task.setCanShoot(true);
                 }
             }
-            
+
             if (e.getKeyCode() == 10)
             {
                 countEnters++;
@@ -273,16 +290,16 @@ public class GamePanel extends JPanel
                     displayMessage = false;
                     displayMessage2 = true;
                 }
-                
+
                 if (countEnters == 2)
                 {
                     displayMessage2 = false;
                     numberAsteroids = 2;
                     numberAsteroidsOnScreen = 2;
                     numberAsteroidsOriginal = 2;
-                    countEnters = 2;
+                    countEnters = 3;
                 }
-                
+
             }
         }
 
@@ -430,5 +447,13 @@ public class GamePanel extends JPanel
             }
         }
 
+    }
+
+    public class WindowListener1 extends WindowAdapter
+    {
+        public void windowClosing(WindowEvent e)
+        {
+            windowClose = true;
+        }
     }
 }

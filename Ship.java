@@ -8,9 +8,11 @@ public class Ship
 {
     private static int degree;
     private ArrayList<AffineTransform> shots;
+    private int totalPoints;
     public Ship ()
     {
         shots = new ArrayList<AffineTransform>();
+        totalPoints = 0;
     }
 
     public void moveForward(AffineTransform t, AffineTransform t2, AffineTransform t3)
@@ -71,6 +73,11 @@ public class Ship
             g2D.drawImage(shot, shots.get(i), panel1);
         }
     }
+    
+    public int getTotalPoints()
+    {
+        return totalPoints;
+    }
 
     public void checkForHit(ArrayList<Asteroid> asteroids, GamePanel panel1)
     {
@@ -96,6 +103,8 @@ public class Ship
                         asteroids.get(j).getT().scale(.8, .8);
                         asteroids.get(j).setSize(2);
                         shots.remove(i);
+                        totalPoints += asteroids.get(j).getPointValue();
+                        asteroids.get(j).setPointValue(200);
                     }
                     else if (asteroids.get(j).getSize() == 2 && shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() - 15 && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid + 15 && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() - 15 && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid + 15)
                     {
@@ -103,6 +112,8 @@ public class Ship
                         asteroids.get(j).getT().scale(.6, .6);
                         asteroids.get(j).setSize(3);
                         shots.remove(i);
+                        totalPoints += asteroids.get(j).getPointValue();
+                        asteroids.get(j).setPointValue(300);
                     }
                     else if (asteroids.get(j).getSize() == 3 && shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() - 15 && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid + 15 && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() - 15 && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid + 15)
                     {
@@ -110,9 +121,12 @@ public class Ship
                         asteroids.get(j).getT().scale(.4, .4);
                         asteroids.get(j).setSize(4);
                         shots.remove(i);
+                        totalPoints += asteroids.get(j).getPointValue();
+                        asteroids.get(j).setPointValue(400);
                     }
                     else if (shots.get(i).getTranslateX() > asteroids.get(j).getT().getTranslateX() - 15 && shots.get(i).getTranslateX() + diameterShot < asteroids.get(j).getT().getTranslateX() + diameterAsteroid + 15 && shots.get(i).getTranslateY() > asteroids.get(j).getT().getTranslateY() - 15 && shots.get(i).getTranslateY() + diameterShot < asteroids.get(j).getT().getTranslateY() + diameterAsteroid + 15)
                     {
+                        totalPoints += asteroids.get(j).getPointValue();
                         asteroids.remove(j);
                         shots.remove(i);
                         panel1.setNumberAsteroidsOnScreen();

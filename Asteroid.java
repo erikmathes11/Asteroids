@@ -161,6 +161,16 @@ public class Asteroid
         size = newSize;
     }
     
+    public int getPointValue()
+    {
+        return pointValue;
+    }
+    
+    public void setPointValue(int newValue)
+    {
+        pointValue = newValue;
+    }
+    
     public double getSize2()
     {
         double size2 = 0;

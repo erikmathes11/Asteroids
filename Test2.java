@@ -66,4 +66,12 @@ public class Test2 extends JPanel
         }
         this.repaint();
     }
+    
+        public class WindowListener1 extends WindowAdapter
+    {
+        public void windowClosing(WindowEvent e)
+        {
+            System.out.println("Close");
+        }
+    }
 }
