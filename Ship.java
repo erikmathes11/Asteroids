@@ -17,16 +17,16 @@ public class Ship
 
     public void moveForward(AffineTransform t, AffineTransform t2, AffineTransform t3)
     {
-        t.translate(1, 1);
-        t2.translate(1, 1);
-        t3.translate(1, 1);
+        t.translate(2, 2);
+        t2.translate(2, 2);
+        t3.translate(2, 2);
     }
 
     public void moveBackward(AffineTransform t, AffineTransform t2, AffineTransform t3)
     {
-        t.translate(-1, -1);
-        t2.translate(-1, -1);
-        t3.translate(-1, -1);
+        t.translate(-2, -2);
+        t2.translate(-2, -2);
+        t3.translate(-2, -2);
     }
 
     public void rotateClockwise(AffineTransform t, AffineTransform t2, AffineTransform t3, AffineTransform original)
@@ -73,10 +73,31 @@ public class Ship
             g2D.drawImage(shot, shots.get(i), panel1);
         }
     }
-    
+
     public int getTotalPoints()
     {
         return totalPoints;
+    }
+
+    public void checkForShipHit(ArrayList<Asteroid> asteroids, AffineTransform t)
+    {
+        for (int i = 0; i < asteroids.size(); i++)
+        {
+            double diameterAsteroid = asteroids.get(i).getSize2() * 31;
+            double shipDimension = 31;
+            if(i == asteroids.size())
+            {
+                i--;
+            }
+            if (asteroids.get(i).getT().getTranslateX() - 39 < t.getTranslateX() && asteroids.get(i).getT().getTranslateX() + diameterAsteroid + 39 > t.getTranslateX() + shipDimension     && asteroids.get(i).getT().getTranslateY() - 39 < t.getTranslateY() && asteroids.get(i).getT().getTranslateY() + diameterAsteroid + 39 > t.getTranslateY() + shipDimension)
+            {
+                System.out.println("Dead");
+            }
+            if (asteroids.get(i).getT().getTranslateX() > t.getTranslateX() - 39 && asteroids.get(i).getT().getTranslateX() + diameterAsteroid < t.getTranslateX() + shipDimension + 39    && asteroids.get(i).getT().getTranslateY() > t.getTranslateY() - 39 && asteroids.get(i).getT().getTranslateY() + diameterAsteroid < t.getTranslateY() + shipDimension + 39)
+            {
+                System.out.println("Dead");
+            }
+        }
     }
 
     public void checkForHit(ArrayList<Asteroid> asteroids, GamePanel panel1)

@@ -166,6 +166,7 @@ public class GamePanel extends JPanel
         }
         //player.teleportShots(t4);
         player.checkForHit(asteroids, this);
+        player.checkForShipHit(asteroids, t);
 
 
         try
@@ -192,6 +193,21 @@ public class GamePanel extends JPanel
     public boolean getWindowClose()
     {
         return windowClose;
+    }
+    
+    public void setNumberAsteroids(int numberAsteroids2)
+    {
+        numberAsteroids = numberAsteroids2;
+    }
+    
+    public void setNumberAsteroidsOnScreen2(int newNumberAsteroidsOnScreen)
+    {
+        numberAsteroidsOnScreen = newNumberAsteroidsOnScreen;
+    }
+    
+    public void setNumberAsteroidsOriginal(int numberAsteroidsOriginal2)
+    {
+        numberAsteroidsOriginal = numberAsteroidsOriginal2;
     }
     
     public class Turn extends KeyAdapter
@@ -294,9 +310,9 @@ public class GamePanel extends JPanel
                 if (countEnters == 2)
                 {
                     displayMessage2 = false;
-                    numberAsteroids = 2;
-                    numberAsteroidsOnScreen = 2;
-                    numberAsteroidsOriginal = 2;
+                    numberAsteroids = 50;
+                    numberAsteroidsOnScreen = 50;
+                    numberAsteroidsOriginal = 50;
                     countEnters = 3;
                 }
 
