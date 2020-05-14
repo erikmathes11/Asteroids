@@ -72,7 +72,7 @@ public class Ship
         }
     }
 
-    public void checkForHit(ArrayList<Asteroid> asteroids)
+    public void checkForHit(ArrayList<Asteroid> asteroids, GamePanel panel1)
     {
         for (int i = 0; i < shots.size(); i++)
         {
@@ -115,6 +115,7 @@ public class Ship
                     {
                         asteroids.remove(j);
                         shots.remove(i);
+                        panel1.setNumberAsteroidsOnScreen();
                     }
                 }
                 catch (Exception e)

@@ -28,6 +28,7 @@ public class GamePanel extends JPanel
     private int numberAsteroids;
     private int numberAsteroidsOriginal;
     private int asteroidsToAdd;
+    private int numberAsteroidsOnScreen;
     private Timer timer;
     private ShootTask task;
     private DriftTask task2;
@@ -111,6 +112,7 @@ public class GamePanel extends JPanel
         numberAsteroids = 0;
         numberAsteroidsOriginal = 0;
         asteroidsToAdd = 0;
+        numberAsteroidsOnScreen = 0;
     }
 
     public GamePanel ()
@@ -137,7 +139,7 @@ public class GamePanel extends JPanel
             g2D.drawImage(startMessage2, t5, this);
         }
         player.drawShot(g2D, shot, this);
-        if (countEnters == 3 && numberAsteroids == 0)
+        if (countEnters == 3 && numberAsteroidsOnScreen == 0)
         {
             System.out.println("Next Wave");
             // asteroidsToAdd += 10;
@@ -155,7 +157,7 @@ public class GamePanel extends JPanel
             asteroids.get(i).teleportAsteroid();
         }
         //player.teleportShots(t4);
-        player.checkForHit(asteroids);
+        player.checkForHit(asteroids, this);
 
 
 
@@ -168,6 +170,11 @@ public class GamePanel extends JPanel
 
         }
         this.repaint();
+    }
+    
+    public void setNumberAsteroidsOnScreen ()
+    {
+        numberAsteroidsOnScreen--;
     }
 
     public class Turn extends KeyAdapter
@@ -257,6 +264,7 @@ public class GamePanel extends JPanel
                     task.setCanShoot(true);
                 }
             }
+            
             if (e.getKeyCode() == 10)
             {
                 countEnters++;
@@ -269,9 +277,10 @@ public class GamePanel extends JPanel
                 if (countEnters == 2)
                 {
                     displayMessage2 = false;
-                    numberAsteroids = 30;
-                    numberAsteroidsOriginal = 30;
-                    countEnters = 3;
+                    numberAsteroids = 2;
+                    numberAsteroidsOnScreen = 2;
+                    numberAsteroidsOriginal = 2;
+                    countEnters = 2;
                 }
                 
             }
