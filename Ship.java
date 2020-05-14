@@ -9,10 +9,12 @@ public class Ship
     private static int degree;
     private ArrayList<AffineTransform> shots;
     private int totalPoints;
+    private boolean dead;
     public Ship ()
     {
         shots = new ArrayList<AffineTransform>();
         totalPoints = 0;
+        dead = false;
     }
 
     public void moveForward(AffineTransform t, AffineTransform t2, AffineTransform t3)
@@ -79,7 +81,22 @@ public class Ship
         return totalPoints;
     }
 
-    public void checkForShipHit(ArrayList<Asteroid> asteroids, AffineTransform t)
+    public boolean getDead()
+    {
+        return dead;
+    }
+
+    public void setDead(boolean dead2)
+    {
+        dead = dead2;
+    }
+    
+    public void setTotalPoints(int totalPoints2)
+    {
+        totalPoints = totalPoints2;
+    }
+
+    public void checkForShipHit(ArrayList<Asteroid> asteroids, AffineTransform t, GamePanel panel1)
     {
         for (int i = 0; i < asteroids.size(); i++)
         {
@@ -89,13 +106,40 @@ public class Ship
             {
                 i--;
             }
-            if (asteroids.get(i).getT().getTranslateX() - 39 < t.getTranslateX() && asteroids.get(i).getT().getTranslateX() + diameterAsteroid + 39 > t.getTranslateX() + shipDimension     && asteroids.get(i).getT().getTranslateY() - 39 < t.getTranslateY() && asteroids.get(i).getT().getTranslateY() + diameterAsteroid + 39 > t.getTranslateY() + shipDimension)
+            try
             {
-                System.out.println("Dead");
+                if (asteroids.get(i).getT().getTranslateX() - 39 < t.getTranslateX() && asteroids.get(i).getT().getTranslateX() + diameterAsteroid + 39 > t.getTranslateX() + shipDimension     && asteroids.get(i).getT().getTranslateY() - 39 < t.getTranslateY() && asteroids.get(i).getT().getTranslateY() + diameterAsteroid + 39 > t.getTranslateY() + shipDimension)
+                {
+                    //System.out.println("Dead");
+                    for (int j = asteroids.size() - 1; j >= 0; j--)
+                    {
+                        asteroids.remove(j);
+                    }
+                    panel1.setCountEnters(4);
+                    panel1.setNumberAsteroids(0);
+                    panel1.setNumberAsteroidsOnScreen2(0);
+                    panel1.setNumberAsteroidsOriginal(0);
+                    panel1.setAsteroidsToAdd(10);
+                    dead = true;
+                }
+                if (asteroids.get(i).getT().getTranslateX() > t.getTranslateX() - 39 && asteroids.get(i).getT().getTranslateX() + diameterAsteroid < t.getTranslateX() + shipDimension + 39    && asteroids.get(i).getT().getTranslateY() > t.getTranslateY() - 39 && asteroids.get(i).getT().getTranslateY() + diameterAsteroid < t.getTranslateY() + shipDimension + 39)
+                {
+                    //System.out.println("Dead");
+                    for (int j = asteroids.size() - 1; j >= 0; j--)
+                    {
+                        asteroids.remove(j);
+                    }
+                    panel1.setCountEnters(4);
+                    panel1.setNumberAsteroids(0);
+                    panel1.setNumberAsteroidsOnScreen2(0);
+                    panel1.setNumberAsteroidsOriginal(0);
+                    panel1.setAsteroidsToAdd(10);
+                    dead = true;
+                }
             }
-            if (asteroids.get(i).getT().getTranslateX() > t.getTranslateX() - 39 && asteroids.get(i).getT().getTranslateX() + diameterAsteroid < t.getTranslateX() + shipDimension + 39    && asteroids.get(i).getT().getTranslateY() > t.getTranslateY() - 39 && asteroids.get(i).getT().getTranslateY() + diameterAsteroid < t.getTranslateY() + shipDimension + 39)
+            catch (Exception e)
             {
-                System.out.println("Dead");
+                i = 0;
             }
         }
     }

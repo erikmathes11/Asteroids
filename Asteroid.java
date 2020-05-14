@@ -12,6 +12,7 @@ public class Asteroid
     private int pointValue;
     private AffineTransform t;
     private AffineTransform t2;
+    private AffineTranform t6;
     private int typeAsteroid;
     private BufferedImage asteroid;
     private double scale;
@@ -88,6 +89,80 @@ public class Asteroid
             scale = .4;
         }
 
+    }
+    
+    public Asteroid(int random)
+    {
+        t = new AffineTransform();
+        t2 = new AffineTransform();
+        t.translate(800,800);
+        t.rotate((Math.random() * 2 * Math.PI) + 0);
+        scale = 0;
+        try
+        {
+            typeAsteroid = (int)(Math.random() * 100) + 0;
+            if (typeAsteroid > 0 && typeAsteroid <= 20)
+            {
+                asteroid = ImageIO.read(new File("asteroid (1).png"));
+            }
+            else if (typeAsteroid > 20 && typeAsteroid <= 40)
+            {
+                asteroid = ImageIO.read(new File("asteroid (5).png"));
+            }
+            else if (typeAsteroid > 40 && typeAsteroid <= 60)
+            {
+                asteroid = ImageIO.read(new File("asteroid (6).png"));
+            }
+            else if (typeAsteroid > 60 && typeAsteroid <= 80)
+            {
+                asteroid = ImageIO.read(new File("asteroid (7).png"));
+            }
+            else if (typeAsteroid > 80 && typeAsteroid <= 85)
+            {
+                asteroid = ImageIO.read(new File("asteroid (2).png"));
+            }
+            else if (typeAsteroid > 85 && typeAsteroid <= 90)
+            {
+                asteroid = ImageIO.read(new File("asteroid (3).png"));
+            }
+            else if (typeAsteroid > 90 && typeAsteroid <= 95)
+            {
+                asteroid = ImageIO.read(new File("asteroid (4).png"));
+            }
+            else
+            {
+                asteroid = ImageIO.read(new File("asteroid (8).png"));
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+        size = (int)(Math.random() * 4) + 1;
+        if (size == 1)
+        {
+            pointValue = 100;
+            t.scale(1, 1);
+            scale = 1;
+        }
+        else if (size == 2)
+        {
+            pointValue = 200;
+            t.scale(.8, .8);
+            scale = .8;
+        }
+        else if (size == 3)
+        {
+            pointValue = 300;
+            t.scale(.6, .6);
+            scale = .6;
+        }
+        else
+        {
+            pointValue = 400;
+            t.scale(.4, .4);
+            scale = .4;
+        }
     }
 
     public void drawAsteroid(Graphics2D g2D, GamePanel panel1, BufferedImage asteroid)

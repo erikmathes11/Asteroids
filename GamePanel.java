@@ -18,6 +18,7 @@ public class GamePanel extends JPanel
     private BufferedImage asteroid;
     private BufferedImage startMessage;
     private BufferedImage startMessage2;
+    private BufferedImage deathMessage;
     private AffineTransform t;
     private AffineTransform t2;
     private AffineTransform t3;
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel
     private boolean displayMessage2;
     private int countEnters;
     private boolean windowClose;
+    private boolean resetScore;
 
     private boolean schedule;
     private boolean schedule2;
@@ -68,6 +70,7 @@ public class GamePanel extends JPanel
         displayMessage = true;
         displayMessage2 = false;
         countEnters = 0;
+        resetScore = false;
 
         schedule = true;
         schedule2 = true;
@@ -108,6 +111,7 @@ public class GamePanel extends JPanel
             shot = ImageIO.read(new File("shot.png"));
             startMessage = ImageIO.read(new File("startMessage.png"));
             startMessage2 = ImageIO.read(new File("startMessage (2).png"));
+            deathMessage = ImageIO.read(new File("deathMessage.png"));
         }
         catch (Exception e)
         {
@@ -166,9 +170,12 @@ public class GamePanel extends JPanel
         }
         //player.teleportShots(t4);
         player.checkForHit(asteroids, this);
-        player.checkForShipHit(asteroids, t);
-
-
+        player.checkForShipHit(asteroids, t, this);
+        if (player.getDead() == true)
+        {
+            g2D.drawImage(deathMessage, t5, this);
+        }
+        
         try
         {
             Thread.sleep(40);
@@ -194,22 +201,47 @@ public class GamePanel extends JPanel
     {
         return windowClose;
     }
-    
+
     public void setNumberAsteroids(int numberAsteroids2)
     {
         numberAsteroids = numberAsteroids2;
     }
-    
+
     public void setNumberAsteroidsOnScreen2(int newNumberAsteroidsOnScreen)
     {
         numberAsteroidsOnScreen = newNumberAsteroidsOnScreen;
     }
-    
+
     public void setNumberAsteroidsOriginal(int numberAsteroidsOriginal2)
     {
         numberAsteroidsOriginal = numberAsteroidsOriginal2;
     }
+
+    public void setAsteroidsToAdd (int asteroidsToAdd2)
+    {
+        asteroidsToAdd = asteroidsToAdd2;
+    }
     
+    public void setCountEnters (int countEnters2)
+    {
+        countEnters = countEnters2;
+    }
+    
+    public int getCountEnters ()
+    {
+        return countEnters;
+    }
+    
+    public boolean getResetScore()
+    {
+        return resetScore;
+    }
+    
+    public void setResetScore(boolean resetScore2)
+    {
+        resetScore = resetScore2;
+    }
+
     public class Turn extends KeyAdapter
     {
         public void keyPressed(KeyEvent e)
@@ -313,6 +345,20 @@ public class GamePanel extends JPanel
                     numberAsteroids = 50;
                     numberAsteroidsOnScreen = 50;
                     numberAsteroidsOriginal = 50;
+                    countEnters = 3;
+                }
+
+                if (countEnters == 5 && player.getDead() == true)
+                {
+                    numberAsteroids = 50;
+                    numberAsteroidsOnScreen = 50;
+                    numberAsteroidsOriginal = 50;
+                    countEnters = 3;
+                    player.setDead(false);
+                    setResetScore(true);
+                }
+                else if(countEnters == 5)
+                {
                     countEnters = 3;
                 }
 
