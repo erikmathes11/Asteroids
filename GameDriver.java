@@ -34,6 +34,10 @@ public class GameDriver
                 scoreLabel.setFont(new Font(scoreLabel.getFont().getName(), scoreLabel.getFont().getStyle(), 20));
                 scoreLabel.setText("Score: " + panel1.getShip().getTotalPoints());
             }
+            if (panel1.getWaveTask().getShowMessage() == true)
+            {
+                System.out.println("Show Message");
+            }
             try
             {
                 Thread.sleep(40);

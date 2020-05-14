@@ -33,6 +33,8 @@ public class GamePanel extends JPanel
     private Timer timer;
     private ShootTask task;
     private DriftTask task2;
+    private WaveTask task3;
+    
     private boolean displayMessage;
     private boolean displayMessage2;
     private int countEnters;
@@ -153,11 +155,17 @@ public class GamePanel extends JPanel
         if (countEnters == 3 && numberAsteroidsOnScreen == 0)
         {
             //System.out.println("Next Wave");
+            WaveTask task3 = new WaveTask();
+            Timer timer2 = new Timer();
+            timer2.schedule(task3, 10000);
+            timer2.cancel();
+            task3 = null;
             asteroidsToAdd += 10;
             numberAsteroids = numberAsteroidsOriginal + asteroidsToAdd;
             numberAsteroidsOriginal = numberAsteroids;
             numberAsteroidsOnScreen = numberAsteroids;
         }
+
         while (numberAsteroids > 0)
         {
             asteroids.add(new Asteroid());
@@ -175,7 +183,7 @@ public class GamePanel extends JPanel
         {
             g2D.drawImage(deathMessage, t5, this);
         }
-        
+
         try
         {
             Thread.sleep(40);
@@ -221,25 +229,35 @@ public class GamePanel extends JPanel
     {
         asteroidsToAdd = asteroidsToAdd2;
     }
-    
+
     public void setCountEnters (int countEnters2)
     {
         countEnters = countEnters2;
     }
-    
+
     public int getCountEnters ()
     {
         return countEnters;
     }
-    
+
     public boolean getResetScore()
     {
         return resetScore;
     }
-    
+
     public void setResetScore(boolean resetScore2)
     {
         resetScore = resetScore2;
+    }
+
+    public AffineTransform getTShip()
+    {
+        return t;
+    }
+    
+    public WaveTask getWaveTask()
+    {
+        return task3;
     }
 
     public class Turn extends KeyAdapter
@@ -342,17 +360,17 @@ public class GamePanel extends JPanel
                 if (countEnters == 2)
                 {
                     displayMessage2 = false;
-                    numberAsteroids = 50;
-                    numberAsteroidsOnScreen = 50;
-                    numberAsteroidsOriginal = 50;
+                    numberAsteroids = 2;
+                    numberAsteroidsOnScreen = 2;
+                    numberAsteroidsOriginal = 2;
                     countEnters = 3;
                 }
 
                 if (countEnters == 5 && player.getDead() == true)
                 {
-                    numberAsteroids = 50;
-                    numberAsteroidsOnScreen = 50;
-                    numberAsteroidsOriginal = 50;
+                    numberAsteroids = 2;
+                    numberAsteroidsOnScreen = 2;
+                    numberAsteroidsOriginal = 2;
                     countEnters = 3;
                     player.setDead(false);
                     setResetScore(true);
