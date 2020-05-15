@@ -75,6 +75,14 @@ public class Ship
             g2D.drawImage(shot, shots.get(i), panel1);
         }
     }
+    
+    public void removeShots()
+    {
+        for (int i = shots.size() - 1; i >= 0; i--)
+        {
+            shots.remove(i);
+        }
+    }
 
     public int getTotalPoints()
     {
@@ -90,7 +98,7 @@ public class Ship
     {
         dead = dead2;
     }
-    
+
     public void setTotalPoints(int totalPoints2)
     {
         totalPoints = totalPoints2;
@@ -199,142 +207,96 @@ public class Ship
                 }
                 catch (Exception e)
                 {
-                    System.out.println("J: " + j);
-                    System.out.println("I: " + i);
-                    System.out.println("Asteroids size: " + asteroids.size());
-                    System.out.println("Shots size: " + shots.size());
+                    //System.out.println("J: " + j);
+                    //System.out.println("I: " + i);
+                    //System.out.println("Asteroids size: " + asteroids.size());
+                    //System.out.println("Shots size: " + shots.size());
                 }
             }
         }
     }
 
-    // public void checkForHit(ArrayList<Asteroid> asteroids)
-    // {
-    // int shotsSize = shots.size();
-    // int asteroidsSize = asteroids.size();
-    // if (shotsSize != 0 && asteroidsSize != 0)
-    // {
-    // for (int i = 0; i < shotsSize; i++)
-    // {
-    // for (int j = 0; j < asteroidsSize; j++)
-    // {
-    // double shotX = 0;
-    // double shotY = 0;
+    public void teleportShots(AffineTransform t4)
+    {
+        for (int i = shots.size() - 1; i >= 0; i--)
+        {
+            if (shots.get(i).getTranslateX() > 2020)
+            {
+                t4.setTransform(shots.get(i));
+                while (t4.getTranslateX() > -60 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140)
+                {
+                    t4.translate(-2, -2);
+                }
+                shots.get(i).setTransform(t4);
+            }
+            if(shots.get(i).getTranslateX() < -100)
+            {
+                t4.setTransform(shots.get(i));
+                while(t4.getTranslateX() < 1970 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //1875
+                {
+                    t4.translate(-2, -2);
+                }
+                shots.get(i).setTransform(t4);
+            }
+            if (shots.get(i).getTranslateY() > 1180) //1080, + 35, 1045
+            {
+                t4.setTransform(shots.get(i));
+                while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() > -60) //35
+                {
+                    t4.translate(-2, -2);
+                }
+                shots.get(i).setTransform(t4); //-1130
+            }
+            if(shots.get(i).getTranslateY() < -100)
+            {
+                t4.setTransform(shots.get(i));
+                while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() < 1140) //1045
+                {
+                    t4.translate(-2, -2);
+                }
+                shots.get(i).setTransform(t4);
+            }
+        }
+    }
 
-    // double asteroidX = 0;
-    // double asteroidY = 0;
-    // try
+    // public void teleportShip(AffineTransform t, AffineTransform t2, AffineTransform t3, AffineTransform original, AffineTransform t7)
     // {
-    // shotX = shots.get(i).getTranslateX();
-    // shotY = shots.get(i).getTranslateY();
-    // }
-    // catch (Exception e)
-    // {
-    // System.out.println("Error with i"); //i-- didn't work
-    // System.out.println("Before");
-    // System.out.println("J: " + j);
-    // System.out.println("I: " + i);
-    // System.out.println("Asteroids Size: " + asteroidsSize);
-    // System.out.println("Shots Size: " + shotsSize);
-    // i--;
-    // System.out.println("After");
-    // System.out.println("J: " + j);
-    // System.out.println("I: " + i);
-    // System.out.println("Asteroids Size: " + asteroidsSize);
-    // System.out.println("Shots Size: " + shotsSize);
-    // }
-    // try
-    // {
-    // asteroidX = asteroids.get(j).getT().getTranslateX();
-    // asteroidY = asteroids.get(j).getT().getTranslateY();
-    // }
-    // catch (Exception e)
-    // {
-    // System.out.println("Error with j");
-    // System.out.println("Before");
-    // System.out.println("J: " + j);
-    // System.out.println("I: " + i);
-    // System.out.println("Asteroids Size: " + asteroidsSize);
-    // System.out.println("Shots Size: " + shotsSize);
-    // j--;
-    // System.out.println("J: " + j);
-    // System.out.println("I: " + i);
-    // System.out.println("Asteroids Size: " + asteroidsSize);
-    // System.out.println("Shots Size: " + shotsSize);
-    // }
-
-    // //still problems with if statements
-    // System.out.println("Before Checking for Hit");
-    // System.out.println("Asteroids Size: " + asteroidsSize);
-    // System.out.println("J: " + j);
-    // if (shotX > asteroidX && shotX < asteroidX + (31 * asteroids.get(j).getScale()))
-    // {
-    // asteroids.remove(j);
-    // shots.remove(i);
-    // shotsSize--;
-    // asteroidsSize--;
-    // }
-    // if (shotY > asteroidY && shotY < asteroidY + (31 * asteroids.get(j).getScale()))
-    // {
-    // asteroids.remove(j);
-    // shots.remove(i);
-    // shotsSize--;
-    // asteroidsSize--;
-    // }
-    // }
-    // }
-    // }
-    // }
-
-    // public void teleportShots(AffineTransform t4)
-    // {
-    // for (int i = 0; i < shots.size(); i++)
-    // {
-    // if (shots.get(i).getTranslateX() > 2020) //1920, +35, 1875
-    // {
-    // //somewhat works with just first statements in whiles
-    // t4.setTransform(shots.get(i));
-    // while(t4.getTranslateX() > -60 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //35
-    // {
-    // t4.translate(-2, -2);
-    // //t.setTransform(t2);
-    // //System.out.println("t2 x Location: " + t2.getTranslateX() + " t2 y Location: " +);
-    // }
-    // shots.get(i).setTransform(t4); //-1950
-    // //t.translate(-2, -2);
-    // }
-    // if(shots.get(i).getTranslateX() < -100)
-    // {
-    // t4.setTransform(shots.get(i));
-    // while(t4.getTranslateX() < 1970 && t4.getTranslateY() > -60 && t4.getTranslateY() < 1140) //1875
-    // {
-    // t4.translate(-2, -2);
-    // //t.setTransform(t2);
-    // }
-    // shots.get(i).setTransform(t4);
-    // }
-    // if (shots.get(i).getTranslateY() > 1180) //1080, + 35, 1045
-    // {
-    // t4.setTransform(shots.get(i));
-    // while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() > -60) //35
-    // {
-    // t4.translate(-2, -2);
-    // //t.setTransform(t2);
-    // }
-    // shots.get(i).setTransform(t4); //-1130
-    // //t.translate(-2, -2);
-    // }
-    // if(t4.getTranslateY() < -100)
-    // {
-    // t4.setTransform(shots.get(i));
-    // while(t4.getTranslateX() > -60 && t4.getTranslateX() < 1970 && t4.getTranslateY() < 1140) //1045
-    // {
-    // t4.translate(-2, -2);
-    // //t.setTransform(t2);
-    // }
-    // shots.get(i).setTransform(t4);
-    // }
-    // }
+        // if (t.getTranslateX() > 2020)
+        // {
+            // t7.setTransform(t);
+            // while (t7.getTranslateX() > -60 && t7.getTranslateY() > -60 && t7.getTranslateY() < 1140)
+            // {
+                // t7.translate(-2, -2);
+            // }
+            // t.setTransform(t7);
+        // }
+        // if(t.getTranslateX() < -100)
+        // {
+            // t7.setTransform(t);
+            // while(t7.getTranslateX() < 1970 && t7.getTranslateY() > -60 && t7.getTranslateY() < 1140) //1875
+            // {
+                // t7.translate(-2, -2);
+            // }
+            // t.setTransform(t7);
+        // }
+        // if (t.getTranslateY() > 1180) //1080, + 35, 1045
+        // {
+            // t7.setTransform(t);
+            // while(t7.getTranslateX() > -60 && t7.getTranslateX() < 1970 && t7.getTranslateY() > -60) //35
+            // {
+                // t7.translate(-2, -2);
+            // }
+            // t.setTransform(t7); //-1130
+        // }
+        // if(t.getTranslateY() < -100)
+        // {
+            // t7.setTransform(t);
+            // while(t7.getTranslateX() > -60 && t7.getTranslateX() < 1970 && t7.getTranslateY() < 1140) //1045
+            // {
+                // t7.translate(-2, -2);
+            // }
+            // t.setTransform(t7);
+        // }
     // }
 
 }

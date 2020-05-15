@@ -186,10 +186,12 @@ public class Asteroid
         return asteroid;
     }
 
+    //asteroid can get stuck continuously teleporting off screen
     public void teleportAsteroid()
     {
         if (t.getTranslateX() > 2020) //1920, +35, 1875
         {
+            //System.out.println("Out Of Bounds");
             t2.setTransform(t);
             while(t2.getTranslateX() > -60 && t2.getTranslateY() > -60 && t2.getTranslateY() < 1140) //35
             {
@@ -199,6 +201,7 @@ public class Asteroid
         }
         if(t.getTranslateX() < -100)
         {
+            //System.out.println("Out Of Bounds");
             t2.setTransform(t);
             while(t2.getTranslateX() < 1970 && t2.getTranslateY() > -60 && t2.getTranslateY() < 1140) //1875
             {
@@ -208,6 +211,7 @@ public class Asteroid
         }
         if (t.getTranslateY() > 1180) //1080, + 35, 1045
         {
+            //System.out.println("Out Of Bounds");
             t2.setTransform(t);
             while(t2.getTranslateX() > -60 && t2.getTranslateX() < 1970 && t2.getTranslateY() > -60) //35
             {
@@ -217,6 +221,7 @@ public class Asteroid
         }
         if(t.getTranslateY() < -100)
         {
+            //System.out.println("Out Of Bounds");
             t2.setTransform(t);
             while(t2.getTranslateX() > -60 && t2.getTranslateX() < 1970 && t2.getTranslateY() < 1140) //1045
             {

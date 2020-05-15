@@ -52,9 +52,10 @@ public class Test2 extends JPanel
         //t.rotate(Math.PI/4,12,12);
         //g2D.setTransform(t);
         //t.translate(.5, .5);
-        t.scale(1.1, 1.1);
-        t.scale(10.0 / 11.0, 10.0 / 11.0);
+        //t.scale(1.1, 1.1);
+        //t.scale(10.0 / 11.0, 10.0 / 11.0);
         g2D.drawImage(image, t, this);
+        //t.setToTranslation(900, 900);
         //g.drawImage(image, 517, 517, this); //works
         try
         {

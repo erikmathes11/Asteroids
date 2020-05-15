@@ -19,22 +19,24 @@ public class GamePanel extends JPanel
     private BufferedImage startMessage;
     private BufferedImage startMessage2;
     private BufferedImage deathMessage;
+    private BufferedImage deathMessage2;
     private AffineTransform t;
     private AffineTransform t2;
     private AffineTransform t3;
     private AffineTransform t4;
     private AffineTransform t5;
+    private AffineTransform t6;
     private AffineTransform original;
     private ArrayList<Asteroid> asteroids;
     private int numberAsteroids;
     private int numberAsteroidsOriginal;
     private int asteroidsToAdd;
     private int numberAsteroidsOnScreen;
+    private int wave;
     private Timer timer;
     private ShootTask task;
     private DriftTask task2;
-    private WaveTask task3;
-    
+
     private boolean displayMessage;
     private boolean displayMessage2;
     private int countEnters;
@@ -64,6 +66,9 @@ public class GamePanel extends JPanel
         t3 = new AffineTransform();
         t4 = new AffineTransform();
         t5 = new AffineTransform();
+        t6 = new AffineTransform();
+        t6.translate(645, 440);
+        t6.scale(10, 10);
         t5.translate(645, 100);
         t5.scale(10, 10);
         original = new AffineTransform();
@@ -72,6 +77,7 @@ public class GamePanel extends JPanel
         displayMessage = true;
         displayMessage2 = false;
         countEnters = 0;
+        wave = 1;
         resetScore = false;
 
         schedule = true;
@@ -114,6 +120,7 @@ public class GamePanel extends JPanel
             startMessage = ImageIO.read(new File("startMessage.png"));
             startMessage2 = ImageIO.read(new File("startMessage (2).png"));
             deathMessage = ImageIO.read(new File("deathMessage.png"));
+            deathMessage2 = ImageIO.read(new File("deathMessage (2).png"));
         }
         catch (Exception e)
         {
@@ -155,15 +162,12 @@ public class GamePanel extends JPanel
         if (countEnters == 3 && numberAsteroidsOnScreen == 0)
         {
             //System.out.println("Next Wave");
-            WaveTask task3 = new WaveTask();
-            Timer timer2 = new Timer();
-            timer2.schedule(task3, 10000);
-            timer2.cancel();
-            task3 = null;
+            wave++;
             asteroidsToAdd += 10;
             numberAsteroids = numberAsteroidsOriginal + asteroidsToAdd;
             numberAsteroidsOriginal = numberAsteroids;
             numberAsteroidsOnScreen = numberAsteroids;
+            player.removeShots();
         }
 
         while (numberAsteroids > 0)
@@ -176,12 +180,27 @@ public class GamePanel extends JPanel
             asteroids.get(i).drawAsteroid(g2D, this, asteroids.get(i).getAsteroid());
             asteroids.get(i).teleportAsteroid();
         }
-        //player.teleportShots(t4);
+        player.teleportShots(t4);
+        
         player.checkForHit(asteroids, this);
         player.checkForShipHit(asteroids, t, this);
         if (player.getDead() == true)
         {
             g2D.drawImage(deathMessage, t5, this);
+            g2D.drawImage(deathMessage2, t6, this);
+            t.setToIdentity();
+            t2.setToIdentity();
+            t3.setToIdentity();
+            t.translate(500, 500);
+            t.scale(1,1);
+            t.rotate(-Math.PI/4, 16, 16);
+            t2.translate(516, 500);
+            t2.scale(1,1);
+            t2.rotate(-Math.PI/4, 16, 16);
+            t3.translate(516, 500);
+            t3.scale(1,1);
+            t3.rotate(-Math.PI/4, 16 ,16);
+
         }
 
         try
@@ -254,17 +273,22 @@ public class GamePanel extends JPanel
     {
         return t;
     }
-    
-    public WaveTask getWaveTask()
+
+    public int getWave()
     {
-        return task3;
+        return wave;
+    }
+
+    public void setWave(int wave2)
+    {
+        wave = wave2;
     }
 
     public class Turn extends KeyAdapter
     {
         public void keyPressed(KeyEvent e)
         {
-            System.out.println(e.getKeyCode());
+            //System.out.println(e.getKeyCode());
             if(e.getKeyCode() == 40)//reverse
             {
                 while (addKeyCode40 == true)
@@ -360,17 +384,17 @@ public class GamePanel extends JPanel
                 if (countEnters == 2)
                 {
                     displayMessage2 = false;
-                    numberAsteroids = 2;
-                    numberAsteroidsOnScreen = 2;
-                    numberAsteroidsOriginal = 2;
+                    numberAsteroids = 20;
+                    numberAsteroidsOnScreen = 20;
+                    numberAsteroidsOriginal = 20;
                     countEnters = 3;
                 }
 
                 if (countEnters == 5 && player.getDead() == true)
                 {
-                    numberAsteroids = 2;
-                    numberAsteroidsOnScreen = 2;
-                    numberAsteroidsOriginal = 2;
+                    numberAsteroids = 20;
+                    numberAsteroidsOnScreen = 20;
+                    numberAsteroidsOriginal = 20;
                     countEnters = 3;
                     player.setDead(false);
                     setResetScore(true);
@@ -385,7 +409,7 @@ public class GamePanel extends JPanel
 
         public void keyReleased(KeyEvent e)
         {
-            System.out.println(e.getKeyCode());
+            //System.out.println(e.getKeyCode());
             if(e.getKeyCode() == 40)//reverse
             {
                 for (int i = 0; i < keyCodes.size(); i++)
