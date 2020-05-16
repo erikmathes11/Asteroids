@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.awt.geom.AffineTransform;
 import java.lang.*;
 import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 public class Test2 extends JPanel
 {
     private BufferedImage image;
@@ -31,6 +34,25 @@ public class Test2 extends JPanel
         task2 = new TestTask();
         timer.schedule(task, 10000);
         timer.schedule(task2, 20000);
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        Runnable task3 = () -> System.out.println("Running Task3");
+        executor.schedule(task3, 5, TimeUnit.SECONDS);
+        executor.shutdown();
+        int count = 0;
+        while (count < 10)
+        {
+            count++;
+            System.out.println(count);
+        }
+        executor = Executors.newSingleThreadScheduledExecutor();
+        executor.schedule(task3, 5, TimeUnit.SECONDS);
+        executor.shutdown();
+        count = 0;
+        while (count < 10)
+        {
+            count++;
+            System.out.println(count);
+        }
     }
     
     public void paintComponent(Graphics g)

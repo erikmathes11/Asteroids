@@ -200,7 +200,7 @@ public class GamePanel extends JPanel
             t3.translate(516, 500);
             t3.scale(1,1);
             t3.rotate(-Math.PI/4, 16 ,16);
-
+            player.removeShots();
         }
 
         try
